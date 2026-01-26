@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="en" data-scrapbook-source="https://polygon-bridge-chain.github.io/" data-scrapbook-create="20260109134703670" data-scrapbook-title="Sell USDT in Bali"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <head>
+ <html lang="en">
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -10,7 +11,6 @@
   <meta name="author" content="Crypto Finance Experts" />
   <link rel="canonical" href="https://staking-polygon.example.com/" />
 
-  <!-- Use your local asset as favicon -->
   <link rel="icon" type="image/png" href="polygon-logo-png_seeklogo-527156.png" />
 
   <!-- Open Graph -->
@@ -30,26 +30,22 @@
     :root{
       --bg0:#07060b;
       --bg1:#0b0a12;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.04);
-      --line: rgba(255,255,255,.10);
 
       --ink:#f6f4ff;
       --muted:#c7c0df;
       --muted2:#a79fc4;
 
-      --accent:#8b5cf6;     /* purple */
-      --accent2:#a78bfa;    /* lighter purple */
-      --accent3:#6d28d9;    /* deep purple */
+      --accent:#8b5cf6;
+      --accent2:#a78bfa;
+      --accent3:#6d28d9;
 
-      --ok:#34d399;
-      --warn:#fbbf24;
-      --err:#fb7185;
-
+      --line: rgba(255,255,255,.10);
       --shadow: 0 22px 60px rgba(0,0,0,.45);
       --shadow2: 0 14px 30px rgba(0,0,0,.40);
+
       --r: 18px;
       --r2: 26px;
+      --max: 1180px;
     }
 
     *{box-sizing:border-box}
@@ -72,9 +68,9 @@
     a:hover{text-decoration:underline}
     img{max-width:100%; height:auto; display:block}
 
-    .container{max-width:1180px; margin:0 auto; padding:0 22px}
+    .container{max-width:var(--max); margin:0 auto; padding:0 22px}
 
-    /* Top bar (Symbiosis-like feel) */
+    /* Topbar (минимально, без лишнего) */
     .topbar{
       position:sticky; top:0; z-index:20;
       backdrop-filter: blur(14px);
@@ -100,28 +96,9 @@
     }
     .brand .t1{color:var(--ink); font-weight:900; letter-spacing:.2px}
     .brand .t2{font-size:.92rem; color:var(--muted2)}
-    .navlinks{
-      display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;
-    }
-    .navlinks a{
-      font-weight:800;
-      color: rgba(246,244,255,.88);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding:8px 12px;
-      border-radius:999px;
-    }
-    .navlinks a:hover{background: rgba(255,255,255,.07); text-decoration:none}
 
     /* Hero */
-    header.hero{padding: 38px 0 26px}
-    .hero-grid{
-      display:grid;
-      gap:18px;
-      grid-template-columns: 1.15fr .85fr;
-      align-items:stretch;
-    }
-
+    header.hero{padding: 38px 0 18px}
     .card{
       border:1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -152,14 +129,15 @@
       font-weight: 950;
       letter-spacing:.2px;
     }
+
     .lead{
       font-size:1.08rem;
       color: rgba(199,192,223,.95);
-      margin:0 0 18px;
-      max-width: 64ch;
+      margin:0 0 14px;
+      max-width: 74ch;
     }
 
-    /* Single CTA only */
+    /* ONE CTA */
     .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
     .cta{
       display:inline-flex; align-items:center; justify-content:center;
@@ -172,54 +150,48 @@
       background: linear-gradient(180deg, var(--accent2), var(--accent));
       border: 1px solid rgba(255,255,255,.18);
       box-shadow: 0 18px 38px rgba(139,92,246,.22);
-      min-width: 220px;
+      min-width: 240px;
     }
     .cta:hover{filter: brightness(1.03); text-decoration:none}
     .cta svg{opacity:.95}
 
-    /* Side visual (right) */
-    .side{
-      position:relative;
-      min-height: 360px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-    .side-top{
-      padding:18px 18px 0;
-      display:flex;
-      justify-content:flex-end;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
+    /* Keywords moved into a text block (not pills) */
+    .keywords-block{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
+      padding:14px 14px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(139,92,246,.28), rgba(255,255,255,.03));
-      color: rgba(246,244,255,.92);
-      font-weight:900;
+      color: rgba(246,244,255,.88);
     }
-    .badge small{display:block; color: rgba(199,192,223,.85); font-weight:800}
-    .side-media{
-      padding: 0 18px 18px;
-    }
-    .hero-img{
-      width:100%;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
+    .keywords-block b{color:var(--ink)}
+    .keywords-block .muted{color: rgba(199,192,223,.92)}
+
+    /* Full-width hero image under the hero card */
+    .hero-media{
+      margin-top:16px;
+      border-radius: var(--r2);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       box-shadow: var(--shadow2);
     }
-
-    /* Body layout */
-    main{padding: 18px 0 56px}
-    .grid{
-      display:grid;
-      gap:18px;
-      grid-template-columns: 1fr;
+    .hero-media img{
+      width:100%;
+      height:auto;
+      display:block;
     }
+    .hero-media .cap{
+      padding:12px 14px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color: rgba(167,159,196,.92);
+      font-weight:800;
+      background: rgba(7,6,11,.25);
+    }
+
+    /* Body */
+    main{padding: 18px 0 56px}
+    .grid{display:grid; gap:18px; grid-template-columns: 1fr;}
 
     .section-title{
       color: var(--ink);
@@ -253,12 +225,6 @@
     }
     .note b{color:var(--ink)}
 
-    .split{
-      display:grid; gap:18px;
-      grid-template-columns: 1.2fr .8fr;
-      align-items:start;
-    }
-
     table{
       width:100%;
       border-collapse:collapse;
@@ -279,19 +245,6 @@
       background: rgba(139,92,246,.10);
     }
     tr:hover td{background: rgba(255,255,255,.02)}
-
-    .tagline{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top:14px;
-      color: rgba(199,192,223,.92);
-      font-weight:800;
-    }
-    .tagline span{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 999px;
-      padding: 8px 12px;
-    }
 
     /* FAQ */
     .faq-item{border-top:1px solid rgba(255,255,255,.10); padding:12px 0}
@@ -321,12 +274,9 @@
       color: rgba(167,159,196,.92);
     }
 
-    /* Responsive */
     @media (max-width: 980px){
-      .hero-grid{grid-template-columns: 1fr}
-      .split{grid-template-columns: 1fr}
       .brand{min-width:auto}
-      .navlinks{display:none}
+      .cta{min-width: 100%;}
     }
   </style>
 </head>
@@ -343,21 +293,12 @@
           <div class="t2">Rewards • APY/APR • Validators • Calculator • Risks</div>
         </div>
       </div>
-
-      <nav class="navlinks" aria-label="Quick navigation">
-        <a href="#how">How it works</a>
-        <a href="#rewards">Rewards & APY/APR</a>
-        <a href="#validators">Validators</a>
-        <a href="#calculator">Calculator</a>
-        <a href="#security">Safety</a>
-        <a href="#faq">FAQ</a>
-      </nav>
     </div>
   </div>
 
-  <!-- Hero -->
+  <!-- Hero (FULL WIDTH, ONE BLOCK) -->
   <header class="hero" role="banner">
-    <div class="container hero-grid">
+    <div class="container">
 
       <section class="card" aria-label="Hero text">
         <div class="card-inner">
@@ -372,7 +313,7 @@
             Built for people who want predictable outcomes — not hype.
           </p>
 
-          <!-- IMPORTANT: only ONE CTA in the hero -->
+          <!-- IMPORTANT: ONLY ONE CTA -->
           <div class="cta-row">
             <a class="cta" href="https://staking.polygon.technology/" target="_blank" rel="noopener">
               Open Polygon Staking
@@ -383,34 +324,28 @@
             </a>
           </div>
 
-          <div class="tagline" aria-label="What this page covers (in-text keywords, not buttons)">
-            <span>Polygon staking rewards</span>
-            <span>Polygon staking APY / APR</span>
-            <span>How to stake Polygon (POL)</span>
-            <span>Polygon staking validator list</span>
-            <span>Polygon staking minimum POL</span>
-            <span>Polygon staking risks & best practices</span>
-            <span>Polygon staking 2025 / 2026</span>
-          </div>
-
-          <div style="margin-top:14px" class="note">
-            <b>Quick rule:</b> good staking is repeatable — clear fees, stable validator performance,
-            predictable reward accrual, and a clean exit path (unbonding/withdrawal) without surprises.
+          <!-- KEYWORDS moved into TEXT BLOCK (no pills/buttons) -->
+          <div class="keywords-block" aria-label="Keywords block">
+            <b>Covered topics:</b>
+            <span class="muted">
+              Polygon staking rewards, Polygon staking APY / APR, how to stake Polygon (POL), Polygon staking validator list,
+              Polygon staking minimum POL, Polygon staking calculator, Polygon staking risks & best practices,
+              Polygon staking yield, Polygon staking 2025 / 2026.
+            </span>
+            <div style="margin-top:10px">
+              <b>Quick rule:</b>
+              good staking is repeatable — clear fees, stable validator performance,
+              predictable reward accrual, and a clean exit path (unbonding/withdrawal) without surprises.
+            </div>
           </div>
         </div>
       </section>
 
-      <aside class="card side" aria-label="Hero visual">
-        <div class="side-top">
-          <div class="badge">
-            Asset Page
-            <small>POL staking overview</small>
-          </div>
-        </div>
-        <div class="side-media">
-          <img class="hero-img" src="poly2.png" alt="Polygon staking overview visual">
-        </div>
-      </aside>
+      <!-- IMAGE moved UNDER hero, full width -->
+      <div class="hero-media" aria-label="Polygon staking visual">
+        <img src="poly2.png" alt="Polygon staking overview visual">
+        <div class="cap">Asset overview: POL staking — operational view (rewards, validators, risks, and exit planning).</div>
+      </div>
 
     </div>
   </header>
@@ -446,58 +381,41 @@
             and exit timing. If you treat it as an operational process (not just “click stake”), outcomes are far more consistent.
           </p>
 
-          <div class="split" style="margin-top:14px">
-            <div>
-              <table aria-label="Polygon staking workflow table">
-                <thead>
-                  <tr>
-                    <th>Stage</th>
-                    <th>What happens</th>
-                    <th>What you should verify</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><b>Delegate</b></td>
-                    <td>You delegate POL to a validator (you keep ownership; validator participates in consensus).</td>
-                    <td>Correct network context, correct validator, and commission/fee settings.</td>
-                  </tr>
-                  <tr>
-                    <td><b>Accrue rewards</b></td>
-                    <td>Rewards accrue over time; realized yield depends on network conditions + validator performance.</td>
-                    <td>Expected APY/APR band, uptime, and whether rewards require claim/withdraw action.</td>
-                  </tr>
-                  <tr>
-                    <td><b>Manage</b></td>
-                    <td>You can restake/compound, switch validators, or partially exit (depending on rules).</td>
-                    <td>Any cooldown/unbonding delays, and whether switching has extra costs.</td>
-                  </tr>
-                  <tr>
-                    <td><b>Withdraw</b></td>
-                    <td>Exit path can involve unbonding time, withdrawal steps, and fees.</td>
-                    <td>Clear timeline, correct wallet/network, and final balances.</td>
-                  </tr>
-                </tbody>
-              </table>
+          <table style="margin-top:14px" aria-label="Polygon staking workflow table">
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>What happens</th>
+                <th>What you should verify</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Delegate</b></td>
+                <td>You delegate POL to a validator (you keep ownership; validator participates in consensus).</td>
+                <td>Correct network context, correct validator, and commission/fee settings.</td>
+              </tr>
+              <tr>
+                <td><b>Accrue rewards</b></td>
+                <td>Rewards accrue over time; realized yield depends on network conditions + validator performance.</td>
+                <td>Expected APY/APR band, uptime, and whether rewards require claim/withdraw action.</td>
+              </tr>
+              <tr>
+                <td><b>Manage</b></td>
+                <td>You can restake/compound, switch validators, or partially exit (depending on rules).</td>
+                <td>Any cooldown/unbonding delays, and whether switching has extra costs.</td>
+              </tr>
+              <tr>
+                <td><b>Withdraw</b></td>
+                <td>Exit path can involve unbonding time, withdrawal steps, and fees.</td>
+                <td>Clear timeline, correct wallet/network, and final balances.</td>
+              </tr>
+            </tbody>
+          </table>
 
-              <div class="note" style="margin-top:14px">
-                <b>Operational mindset:</b> measure “Polygon staking yield” as <i>realized</i> rewards over time after fees,
-                not the headline number. APY is a band, not a guarantee.
-              </div>
-            </div>
-
-            <div>
-              <img src="snimok-ekrana-2022-01-25-v-16.10.24.png" alt="Polygon staking dashboard screenshot" style="
-                width:100%;
-                border-radius:18px;
-                border:1px solid rgba(255,255,255,.10);
-                background: rgba(255,255,255,.03);
-                box-shadow: var(--shadow2);
-              ">
-              <p style="margin:10px 0 0; color: rgba(167,159,196,.92); font-weight:800;">
-                Tip: use dashboards/metrics to confirm validator uptime and delegation distribution.
-              </p>
-            </div>
+          <div class="note" style="margin-top:14px">
+            <b>Operational mindset:</b> measure “Polygon staking yield” as <i>realized</i> rewards over time after fees,
+            not the headline number. APY is a band, not a guarantee.
           </div>
         </div>
       </section>
@@ -732,7 +650,7 @@
         </div>
       </section>
 
-      <!-- SECURITY / TRUST -->
+      <!-- SECURITY -->
       <section id="security" class="card">
         <div class="card-inner">
           <h2 class="section-title">Staking Polygon Safe / Legit / Trust: Risk Hygiene (Must-Do Checklist)</h2>
@@ -750,7 +668,7 @@
           </ul>
 
           <div class="note" style="margin-top:14px">
-            <b>Staking polygon best practices:</b> treat staking like a long-running position.
+            <b>Best practices:</b> treat staking like a long-running position.
             Your main risks are operational mistakes and validator reliability — manage both proactively.
           </div>
         </div>
@@ -829,12 +747,11 @@
             <li><a href="https://steemit.com/crypto/@cryptoflowernews/staking-polygon-risks-explained-liquidity-unbonding-and-validator-failure" target="_blank" rel="noopener nofollow">Steemit — risks explained</a></li>
             <li><a href="https://dapplooker.com/dashboard/staking-polygon-dashboard-2026-validators-delegators-and-incentives-1311" target="_blank" rel="noopener nofollow">DappLooker — staking Polygon dashboard</a></li>
             <li><a href="https://paragraph.com/@polygon-bridge/staking-polygon-for-beginners-from-wallet-setup-to-first-rewards" target="_blank" rel="noopener nofollow">Paragraph — beginners guide</a></li>
-            <li><a href="https://www.tumblr.com/mysterioustrooperservant/806349593339133952/staking-polygon-validator-metrics-uptime?source=share" target="_blank" rel="noopener nofollow">Tumblr — validator metrics / uptime notes</a></li>
             <li><a href="https://sites.google.com/view/stakingpolygon" target="_blank" rel="noopener nofollow">Google Sites — staking polygon hub</a></li>
           </ul>
 
           <div class="note" style="margin-top:14px">
-            <b>About this page:</b> prepared as a practical SEO-oriented knowledge base for
+            <b>About this page:</b> practical SEO-oriented knowledge base for
             <i>Polygon Staking</i> (POL): rewards, APY/APR, validator selection, calculator logic, risks, best practices, and troubleshooting.
           </div>
         </div>
@@ -906,7 +823,7 @@
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
         <div>© 2026 Polygon Staking — Educational, security-first operational guide.</div>
         <div style="color: rgba(167,159,196,.92); font-weight:800;">
-          Keywords covered in-text: Polygon staking rewards • Polygon staking APY • Polygon staking APR • Polygon staking yield • validator list • calculator • risks • best practices
+          Topics: rewards • APY/APR • validator list • calculator • risks • best practices • troubleshooting
         </div>
       </div>
     </div>
