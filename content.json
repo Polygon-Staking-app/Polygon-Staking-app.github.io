@@ -1,0 +1,125 @@
+{
+  "key_facts": {
+    "Category": "POL staking app",
+    "Network": "Polygon staking on Ethereum contracts",
+    "Token": "POL",
+    "Custody": "Non-custodial delegation",
+    "Gas Token": "ETH for Ethereum staking transactions"
+  },
+  "intent": [
+    {
+      "q": "Polygon staking app: where to stake POL",
+      "a": "The official Polygon staking app is at staking.polygon.technology and is the safest starting point for delegating POL. Polygon's current token is POL, not legacy MATIC terminology, so users should be cautious with older staking guides. The app lets delegators choose validators, delegate POL, and manage staking actions through wallet transactions. Staking is non-custodial when performed through the official flow, but the user still takes validator performance, commission, smart-contract, and market risk. Because Polygon staking transactions use Ethereum-side staking contracts, users should keep ETH available for gas when approving, delegating, claiming, or unstaking."
+    },
+    {
+      "q": "How to use the Polygon staking app with MetaMask",
+      "a": "To use the Polygon staking app with MetaMask, visit the official staking domain, connect the wallet, confirm the account, choose a validator, approve POL if required, and submit the delegation transaction. The wallet prompt should clearly show the network and contract interaction. Because staking actions can involve Ethereum gas, having only POL on Polygon may not be enough to complete every staking step. Users should verify the URL, avoid sponsored lookalikes, and never type a seed phrase into a web page. After delegating, the app should show the validator, delegated balance, and reward status."
+    },
+    {
+      "q": "Polygon staking app validator selection",
+      "a": "Validator selection affects Polygon staking rewards and risk. A good validator screen should include commission, checkpoint signing performance, total stake, reputation, and whether the validator is accepting delegation. The lowest commission is not always the best choice if the validator is unreliable or overly concentrated. Delegators should compare net rewards after commission and consider spreading stake if the app and staking model allow it. Validator performance can change, so staking is not a set-and-forget action. Revisit the staking app periodically to check rewards, commission, validator status, and any protocol migration notices."
+    },
+    {
+      "q": "Polygon staking app unstake and withdrawal",
+      "a": "Unstaking POL through the Polygon staking app is a separate flow from delegating. A user generally initiates an unstake or unbond action, waits for the protocol-defined withdrawal process, and then completes any claim or withdrawal step shown by the app. The exact timing and transaction sequence should be checked in the live app before staking, especially for users who may need liquidity quickly. Gas can be required for each onchain step. A staking app cannot remove market risk: POL price can change during the unstaking period, and rewards may stop or change once stake is no longer actively delegated."
+    },
+    {
+      "q": "Polygon staking app not showing MATIC or POL",
+      "a": "If the Polygon staking app does not show a balance, the common causes are wrong wallet account, outdated token terminology, funds on the wrong network, missing ETH for gas, or an incomplete MATIC-to-POL migration path. After the POL migration, tools that only reference MATIC can be confusing. Users should confirm whether their exchange, wallet, and staking interface show POL correctly and whether the tokens are on the network required for staking. Do not send tokens to a random address to fix a display issue; use official migration and staking resources only."
+    }
+  ],
+  "compare": {
+    "title": "Polygon staking app vs exchange staking",
+    "rows": [
+      [
+        "Dimension",
+        "Polygon staking app",
+        "Exchange staking"
+      ],
+      [
+        "Custody",
+        "User signs from self-custody wallet",
+        "Exchange controls the assets"
+      ],
+      [
+        "Validator choice",
+        "Delegator can choose validators",
+        "Usually abstracted by the exchange"
+      ],
+      [
+        "Fees",
+        "Network gas plus validator commission",
+        "Exchange spread, fee, or rate policy"
+      ],
+      [
+        "Transparency",
+        "Onchain delegation can be inspected",
+        "Depends on exchange reporting"
+      ]
+    ]
+  },
+  "faq": [
+    {
+      "q": "What is the official Polygon staking app?",
+      "a": "The official staking interface is staking.polygon.technology. Users should type or bookmark the domain and avoid sponsored search results that imitate Polygon branding. The app is for delegating POL and managing staking actions."
+    },
+    {
+      "q": "Do I need ETH to use the Polygon staking app?",
+      "a": "Yes, staking actions can require ETH for gas because Polygon staking uses Ethereum-side contracts. Holding only POL on Polygon may not be enough for approvals, delegation, claims, or unstaking transactions."
+    },
+    {
+      "q": "Can I still stake MATIC?",
+      "a": "Polygon moved from MATIC to POL. Some older wallets or guides still use MATIC language, but current Polygon staking should be checked against official POL staking and migration resources before taking action."
+    },
+    {
+      "q": "How do I pick a Polygon validator?",
+      "a": "Compare commission, performance, reputation, delegation capacity, and concentration. A low commission validator can still be a poor choice if reliability is weak. Recheck validator status periodically after delegating."
+    },
+    {
+      "q": "Is Polygon staking app non-custodial?",
+      "a": "When used through a self-custody wallet, the Polygon staking app is non-custodial: the user signs transactions from their wallet. That does not remove smart-contract, validator, slashing, commission, or POL price risk."
+    },
+    {
+      "q": "Why is my Polygon staking reward delayed?",
+      "a": "Rewards can depend on checkpoint timing, validator performance, app indexing, and claim mechanics. If rewards look delayed, check validator status, transaction history, and the official app before assuming funds are missing."
+    }
+  ],
+  "niche": {
+    "type": "stake",
+    "apy": "~4.5%",
+    "asset": "POL",
+    "receive": "POL"
+  },
+  "authority": [
+    {
+      "text": "Polygon staking app",
+      "url": "https://staking.polygon.technology/"
+    },
+    {
+      "text": "POL token page",
+      "url": "https://pol.polygon.technology/"
+    },
+    {
+      "text": "Polygon official site",
+      "url": "https://polygon.technology/"
+    },
+    {
+      "text": "MATIC to POL migration announcement",
+      "url": "https://polygon.technology/blog/matic-to-pol-migration-is-now-live-everything-you-need-to-know"
+    },
+    {
+      "text": "POL on CoinGecko",
+      "url": "https://www.coingecko.com/en/coins/polygon"
+    },
+    {
+      "text": "Polygon GitHub",
+      "url": "https://github.com/maticnetwork"
+    }
+  ],
+  "sameAs": [
+    "https://x.com/0xPolygon",
+    "https://github.com/maticnetwork",
+    "https://www.coingecko.com/en/coins/polygon",
+    "https://defillama.com/chain/Polygon"
+  ]
+}
