@@ -1,157 +1,118 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polygon Staking - App</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polygon Staking - Decentralized DeFi Portal</title>
+  <meta name="description" content="Secure, non-custodial portal for Polygon Staking DeFi operations directly from your own wallet.">
+  <link rel="canonical" href="https://polygon-staking-app.github.io/">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="prefetch" href="dashboard/">
+  <link rel="prerender" href="dashboard/">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
 
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      display: block;
-    }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ===== Base bridge — SIMPLE scenario (one-screen, light premium, Base blue) ===== */
+:root{
+  --bg:#F4F6FB; --surface:#FFFFFF; --inset:#F1F4FA;
+  --ink:#0B0F18; --muted:#586273; --faint:#949CAB;
+  --accent:#8247E5; --accent-2:#6D32C9; --accent-soft:rgba(130,71,229,.12);
+  --line:rgba(11,15,24,.09); --line-2:rgba(11,15,24,.16);
+  --radius:20px; --shadow:0 26px 60px -30px rgba(11,15,24,.30);
+  --max:1080px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:
+    radial-gradient(60% 40% at 50% -6%, rgba(130,71,229,.10), transparent 60%),
+    var(--bg);
+  color:var(--ink);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  min-height:100dvh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1{margin:0;line-height:1.08;letter-spacing:-.03em}
+p{margin:0}
+
+.topbar{display:flex;align-items:center;gap:14px;padding:18px clamp(16px,4vw,40px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.12rem;letter-spacing:-.01em}
+.brand img{border-radius:8px}
+.nav{display:flex;gap:26px;margin-left:18px}
+.nav a{color:var(--muted);font-size:.93rem;font-weight:500;transition:color .15s}
+.nav a:hover{color:var(--ink)}
+.sp{flex:1}
+.ghost{display:inline-flex;align-items:center;background:var(--ink);color:#fff;font-weight:600;font-size:.9rem;
+  padding:9px 18px;border-radius:999px;transition:transform .12s,opacity .2s}
+.ghost:hover{transform:translateY(-1px);opacity:.92}
+
+.stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:20px clamp(16px,4vw,40px) 8px;gap:0}
+.stage h1{font-size:clamp(2.6rem,6.5vw,4.2rem);font-weight:800}
+.sub{color:var(--muted);font-size:clamp(1.02rem,1.7vw,1.2rem);max-width:46ch;margin-top:16px}
+.sub strong{color:var(--ink);font-weight:700;box-shadow:inset 0 -.5em 0 var(--accent-soft)}
+
+.card{width:min(560px,100%);margin-top:34px;background:var(--surface);border:1px solid var(--line);
+  border-radius:22px;box-shadow:var(--shadow);padding:20px}
+.route{display:flex;align-items:stretch;gap:12px}
+.leg{flex:1;min-width:0;background:var(--inset);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left}
+.leg .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:700}
+.chip{display:flex;align-items:center;gap:9px;margin-top:9px;font-weight:800;font-size:1.08rem}
+.chip .ic{width:26px;height:26px;border-radius:50%;flex:none}
+.dir{flex:none;align-self:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);
+  background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:background .15s,color .15s,transform .2s}
+.dir:hover{color:var(--accent);background:var(--accent-soft)}
+.dir .ar{display:inline-block;font-size:1.1rem;line-height:1;transition:transform .2s}
+.act{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;
+  background:var(--accent);color:#fff;font-weight:800;font-size:1.06rem;padding:16px;border-radius:14px;
+  transition:transform .12s,background .2s}
+.act:hover{background:var(--accent-2);transform:translateY(-1px)}
+.note{text-align:center;color:var(--faint);font-size:.78rem;margin-top:12px}
+
+.foot{text-align:center;padding:20px 24px 26px;color:var(--faint);font-size:.85rem}
+.foot b{color:var(--muted);font-weight:700}
+
+@media(max-width:620px){
+  .nav{display:none}
+  .route{flex-direction:column}
+  .dir{align-self:center}
+  .dir .ar{transform:rotate(90deg)}
+  .stage h1{font-size:clamp(2rem,9vw,2.6rem)}
+  .sub{margin-top:12px}
+  .card{margin-top:22px}
+}
+
+
+  
+.footer {
+  text-align: center !important;
+}
   </style>
 </head>
 <body>
-
-  <iframe src="https://staking-polygon.com/"></iframe>
-
-  <main>
-    <h1>Polygon Staking</h1>
-
-    <section>
-      <h2>What to verify before delegating</h2>
-      <p>Polygon Staking is used for delegating POL from a self-custody wallet, so the first check is the live staking flow and the wallet prompt before any signature. The <a class="inline-link" href="https://docs.polygon.technology/pos/how-to/delegate/" rel="noopener noreferrer">delegation dashboard guide</a> explains the approval and delegation sequence, while <a class="inline-link" href="https://www.coingecko.com/en/coins/polygon" rel="noopener noreferrer">the POL token profile</a> helps users confirm current token naming. Because staking actions settle through Ethereum-side transactions, <a class="inline-link" href="https://ethereum.org/en/developers/docs/gas/" rel="noopener noreferrer">Ethereum gas documentation</a> is relevant before approving, claiming, or unbonding.</p>
-    </section>
-
-    <section>
-      <h2>How delegation management works</h2>
-      <p>After connecting a wallet, delegators choose a validator, approve the token interaction, and submit the delegation transaction. The <a class="inline-link" href="https://docs.polygon.technology/pos/how-to/delegate" rel="noopener noreferrer">delegation transaction walkthrough</a> is the protocol-specific reference for reviewing the flow, and <a class="inline-link" href="https://academy.binance.com/en/articles/what-is-staking" rel="noopener noreferrer">Binance Academy's staking explainer</a> gives broader context on delegated staking mechanics. Completed on-chain transactions can be checked through <a class="inline-link" href="https://polygonscan.com/" rel="noopener noreferrer">PolygonScan transaction search</a> instead of relying only on an app display.</p>
-    </section>
-
-    <section>
-      <h2>Validator and rewards context</h2>
-      <p>Validator choice can affect reliability, commission, and how often a delegator needs to review the position. The <a class="inline-link" href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/" rel="noopener noreferrer">proof-of-stake validator overview</a> explains the role validators play in proof-of-stake networks, and <a class="inline-link" href="https://defillama.com/chain/Polygon" rel="noopener noreferrer">DefiLlama's Polygon chain dashboard</a> provides an independent data view for comparing ecosystem activity without treating any yield estimate as guaranteed.</p>
-    </section>
-
-    <section>
-      <h2>Fees, custody, and security checks</h2>
-      <div class="risk-card">
-        <h3>Fees</h3>
-        <p>Ethereum network fees can apply to approvals, delegation, reward claims, and unbonding; <a class="inline-link" href="https://etherscan.io/gastracker" rel="noopener noreferrer">Etherscan's gas tracker</a> gives a live fee reference before a user confirms a transaction. On-chain actions are irreversible, and this is not financial advice.</p>
-      </div>
-      <div class="risk-card">
-        <h3>Custody</h3>
-        <p>Self-custody means the wallet owner controls signatures and recovery materials, but it also means the user carries operational risk; <a class="inline-link" href="https://www.investopedia.com/terms/c/cold-storage.asp" rel="noopener noreferrer">Investopedia's cold storage explainer</a> outlines why key management matters. On-chain actions are irreversible, and this is not financial advice.</p>
-      </div>
-      <div class="risk-card">
-        <h3>Security</h3>
-        <p>Before staking, compare token identifiers and contract context with a neutral reference such as <a class="inline-link" href="https://coinmarketcap.com/currencies/polygon-ecosystem-token/" rel="noopener noreferrer">CoinMarketCap's POL asset page</a>, then verify the wallet prompt before signing. On-chain actions are irreversible, and this is not financial advice.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>FAQ</h2>
-      <details open>
-        <summary>What is polygon staking?</summary>
-        <p>It is the Polygon flow for delegating POL to validators, viewing delegations, withdrawing rewards, restaking rewards, moving stake, and unbonding; the visible steps should line up with <a class="inline-link" href="https://www.coingecko.com/en/coins/polygon" rel="noopener noreferrer">CoinGecko's POL market reference</a> when checking token naming.</p>
-      </details>
-      <details>
-        <summary>Does polygon staking happen on Ethereum mainnet?</summary>
-        <p>Yes, staking actions can require Ethereum-side wallet transactions, so users should keep ETH available for gas and review <a class="inline-link" href="https://etherscan.io/gastracker" rel="noopener noreferrer">Etherscan's gas fee reference</a> before approving or unbonding.</p>
-      </details>
-      <details>
-        <summary>Which token is used for polygon staking?</summary>
-        <p>Current Polygon staking uses POL terminology, and older MATIC references should be checked carefully against <a class="inline-link" href="https://coinmarketcap.com/currencies/polygon-ecosystem-token/" rel="noopener noreferrer">CoinMarketCap's POL listing</a> before a user signs a token approval.</p>
-      </details>
-      <details>
-        <summary>Is there a minimum for polygon staking?</summary>
-        <p>The exact amount shown in the live app should be reviewed before delegating, and any reward expectation should be treated cautiously because <a class="inline-link" href="https://www.investopedia.com/terms/s/staking-cryptocurrency.asp" rel="noopener noreferrer">Investopedia's cryptocurrency staking overview</a> frames staking as a risk-bearing activity rather than a guaranteed return.</p>
-      </details>
-      <details>
-        <summary>How long does polygon staking unbonding take?</summary>
-        <p>Unbonding timing should be checked in the live interface before committing funds, because network conditions and validator operations can affect when a user completes the process; <a class="inline-link" href="https://defillama.com/chain/Polygon" rel="noopener noreferrer">DefiLlama's Polygon data page</a> is useful context for broad network activity, not a promise of liquidity timing.</p>
-      </details>
-      <details>
-        <summary>How do I pick a Polygon validator?</summary>
-        <p>Review validator commission, reliability, concentration, and whether the validator is accepting delegation; <a class="inline-link" href="https://academy.binance.com/en/articles/what-is-staking" rel="noopener noreferrer">Binance Academy's staking risk section</a> gives neutral background on why validator performance matters.</p>
-      </details>
-    </section>
-  </main>
-
-  <footer>
-    <p>Polygon Staking</p>
-    <nav>
-      <a href="/">Home</a>
+  <header class="topbar">
+    <div class="brand">
+      <img src="favicon.png" width="30" height="30" alt="">
+      <span>Polygon Staking</span>
+    </div>
+    <span class="spacer"></span>
+    <nav class="nav" aria-label="Main Navigation">
+      <a href="how-it-works/">How it works</a>
+      <a href="faq/">FAQ</a>
+      <a href="about/">About</a>
+      <a href="security/">Security</a>
+      <a href="supported-chains/">Supported Chains</a>
     </nav>
-  </footer>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is polygon staking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It is the Polygon flow for delegating POL to validators, viewing delegations, withdrawing rewards, restaking rewards, moving stake, and unbonding; the visible steps should line up with CoinGecko's POL market reference when checking token naming."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does polygon staking happen on Ethereum mainnet?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, staking actions can require Ethereum-side wallet transactions, so users should keep ETH available for gas and review Etherscan's gas fee reference before approving or unbonding."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which token is used for polygon staking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Current Polygon staking uses POL terminology, and older MATIC references should be checked carefully against CoinMarketCap's POL listing before a user signs a token approval."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a minimum for polygon staking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The exact amount shown in the live app should be reviewed before delegating, and any reward expectation should be treated cautiously because Investopedia's cryptocurrency staking overview frames staking as a risk-bearing activity rather than a guaranteed return."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long does polygon staking unbonding take?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Unbonding timing should be checked in the live interface before committing funds, because network conditions and validator operations can affect when a user completes the process; DefiLlama's Polygon data page is useful context for broad network activity, not a promise of liquidity timing."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I pick a Polygon validator?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Review validator commission, reliability, concentration, and whether the validator is accepting delegation; Binance Academy's staking risk section gives neutral background on why validator performance matters."
-        }
-      }
-    ]
-  }
-  </script>
-
+  </header>
+  <main class="stage" style="padding: 100px 24px; text-align: center; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 24px; font-weight: 800;">Polygon Staking</h1>
+    <p class="value" style="font-size: 1.25rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.6;">Secure, non-custodial gateway for decentralized operations. Connect your Web3 wallet to enter the portal.</p>
+    <a class="open-app" href="dashboard/" style="display: inline-flex; justify-content: center; align-items: center; min-height: 52px; padding: 0 32px; border-radius: 9999px; background: var(--accent, #625bf3); color: #fff; font-weight: 700; text-decoration: none; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: transform 0.2s ease;">Open App Dashboard</a>
+  </main>
+  <footer class="footer">Polygon Staking &mdash; 2026</footer>
 </body>
 </html>
