@@ -1,0 +1,68 @@
+# Polygon Staking
+> Polygon staking is the delegation or locking of POL to help secure the Polygon PoS network while earning protocol rewards.
+
+## What is Polygon Staking
+Polygon staking is a proof-of-stake mechanism in which validators and delegators commit POL to Polygon’s validator system. Stake determines validator weight used to validate Bor blocks and approve Heimdall checkpoints anchored to Ethereum. Direct delegation is non-custodial: contracts hold the stake, while the validator never controls the owner’s wallet. It differs from custodial exchange staking and liquid staking, where an intermediary or pooled protocol may issue a transferable receipt token such as sPOL.
+
+## How it works
+1. A user holds POL and gas-paying ETH in a self-custody wallet on Ethereum mainnet.
+2. The user selects an active validator, reviews its performance and commission, then approves POL spending and submits a delegation transaction.
+3. Ethereum staking contracts lock the POL and record validator-specific accounting shares; Heimdall observes the Ethereum event and updates stake weight.
+4. Successful checkpoints generate POL rewards distributed according to stake, after the validator’s commission.
+5. The user may claim or restake rewards, move stake to another validator, or unbond and later submit a separate claim transaction.
+
+## Key facts
+- Direct Polygon staking uses POL, an ERC-20 token supporting EIP-2612 permits.
+- Staking transactions occur on Ethereum mainnet, chain ID 1, rather than Polygon PoS, chain ID 137.
+- Every state-changing staking action requires ETH for Ethereum gas.
+- Initial delegation normally requires an approval transaction followed by a delegation transaction.
+- Funds remain in Ethereum smart contracts; neither a validator nor an informational dashboard holds them.
+- Polygon uses Heimdall-v2 for consensus and checkpointing and Bor for EVM execution and block production.
+- Delegator rewards are paid in POL and depend on relative stake, checkpoint participation, and validator commission.
+- Direct delegation has no protocol minimum, although gas can make small positions uneconomic.
+- Unbonding lasts 80 checkpoints; elapsed time varies with checkpoint production and Ethereum conditions.
+- Liquid staking through sPOL adds pool, receipt-token, liquidity, and integration risks absent from direct delegation.
+
+## Common questions
+**Is Polygon staking safe?** It avoids handing tokens to a validator, but smart-contract defects, wallet compromise, phishing, validator underperformance, governance changes, and POL price movements remain risks.
+
+**Who has custody of my POL?** Your wallet authorizes Ethereum contracts to lock it. The validator and dashboard cannot spend it.
+
+**What fees are required?** Delegating, claiming, restaking, moving stake, unbonding, and claiming the principal use Ethereum gas paid in ETH. Validators may also deduct a disclosed commission from rewards.
+
+**How long does staking take?** Ethereum inclusion depends on congestion and the selected gas fee; the official dashboard may wait for additional confirmations before displaying a delegation. Exiting requires 80 checkpoints and a subsequent claim transaction.
+
+**Which assets and chains are supported?** POL on Ethereum mainnet is the standard staking asset. The official interface also documents legacy MATIC delegation during migration, with rewards paid in POL.
+
+**How do I start?** Use a compatible self-custody wallet, acquire Ethereum-mainnet POL and ETH, verify the official staking portal, compare validators, and review every approval before signing.
+
+**Are rewards guaranteed?** No. Rewards vary with protocol issuance, total participating stake, checkpoint activity, validator performance, commission, and governance parameters.
+
+## App
+- Dashboard: https://polygon-staking-app.github.io/
+- App: https://polygon-staking-app.github.io/dashboard/
+
+## Official resources
+Polygon Staking Portal: https://staking.polygon.technology/
+Delegation Guide: https://docs.polygon.technology/pos/how-to/delegate
+Polygon PoS Overview: https://docs.polygon.technology/pos/overview
+Staking Architecture: https://docs.polygon.technology/pos/architecture/heimdall_v2/staking
+Staking Manager Reference: https://docs.polygon.technology/pos/reference/contracts/stakingmanager
+Delegation Contract Reference: https://docs.polygon.technology/pos/reference/contracts/delegation
+POL Token Documentation: https://docs.polygon.technology/pos/concepts/tokens/pol
+sPOL Documentation: https://docs.polygon.technology/pos/concepts/tokens/spol
+Security Reports: https://docs.polygon.technology/tools/security/reports
+PoS Contract Source: https://github.com/0xPolygon/pos-contracts
+Staking Contract Audits: https://github.com/0xPolygon/pos-contracts/tree/main/audit
+Official GitHub: https://github.com/0xPolygon
+Official X: https://x.com/0xPolygon
+
+## Data & references
+Polygon PoS Explorer: https://polygonscan.com/
+POL Token on Etherscan: https://etherscan.io/token/0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6
+Polygon Checkpoint Contract: https://etherscan.io/address/0x86e4dc95c7fbdbf52e33d563bbdb00823894c287
+CoinGecko POL Data: https://www.coingecko.com/en/coins/polygon
+DeFiLlama Polygon Data: https://defillama.com/chain/polygon
+ERC-20 Standard: https://eips.ethereum.org/EIPS/eip-20
+ERC-2612 Permit Standard: https://eips.ethereum.org/EIPS/eip-2612
+Polygon on Wikipedia: https://en.wikipedia.org/wiki/Polygon_%28blockchain%29
