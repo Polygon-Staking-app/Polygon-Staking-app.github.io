@@ -1,297 +1,288 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Polygon Staking — Delegate POL to a Validator</title>
-  <meta name="description" content="Learn how Polygon Staking works: delegating POL to a validator, checkpoint-based rewards, the unbonding period, and liquid staking alternatives. Compare validators before you delegate and keep your own keys.">
-  <link rel="canonical" href="https://polygon-staking-app.github.io/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Polygon Staking">
-  <meta property="og:description" content="Learn how Polygon Staking works: delegating POL to a validator, checkpoint-based rewards, the unbonding period, and liquid staking alternatives. Compare validators before you delegate and keep your own keys.">
-  <meta property="og:url" content="https://polygon-staking-app.github.io/">
-  <meta property="og:image" content="https://polygon-staking-app.github.io/og.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Polygon Staking">
-  <meta name="twitter:description" content="Learn how Polygon Staking works: delegating POL to a validator, checkpoint-based rewards, the unbonding period, and liquid staking alternatives. Compare validators before you delegate and keep your own keys.">
-  <meta name="twitter:image" content="https://polygon-staking-app.github.io/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://polygon-staking-app.github.io/#website", "url": "https://polygon-staking-app.github.io/", "name": "Polygon Staking — Delegate POL to a Validator"}, {"@type": "WebPage", "@id": "https://polygon-staking-app.github.io/#webpage", "url": "https://polygon-staking-app.github.io/", "name": "Polygon Staking — Delegate POL to a Validator", "isPartOf": {"@id": "https://polygon-staking-app.github.io/#website"}, "description": "Learn how Polygon Staking works: delegating POL to a validator, checkpoint-based rewards, the unbonding period, and liquid staking alternatives. Compare validators before you delegate and keep your own keys.", "datePublished": "2026-11-04", "dateModified": "2026-11-04"}, {"@type": "SoftwareApplication", "name": "Polygon Staking", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://polygon-staking-app.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Staking"}, {"@type": "ListItem", "position": 3, "name": "Polygon Staking"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Polygon Staking?", "acceptedAnswer": {"@type": "Answer", "text": "Polygon Staking is delegating POL tokens to a validator that produces and checks blocks on the Polygon network, earning a share of the rewards the validator generates in return."}}, {"@type": "Question", "name": "Do I keep custody of my POL during Polygon Staking?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Delegation assigns voting and block-production weight to a validator, but the POL remains tied to your own address rather than being transferred to anyone else."}}, {"@type": "Question", "name": "How long is the unbonding period?", "acceptedAnswer": {"@type": "Answer", "text": "Requesting to undelegate starts a fixed waiting period during which POL no longer earns rewards and is not yet available to withdraw. The exact duration is set by the network's staking parameters."}}, {"@type": "Question", "name": "How do I choose a validator for Polygon Staking?", "acceptedAnswer": {"@type": "Answer", "text": "Compare commission rate, uptime, and checkpoint participation history, which are typically visible on staking dashboards and verifiable on a block explorer such as PolygonScan."}}, {"@type": "Question", "name": "What is liquid staking and how is it different?", "acceptedAnswer": {"@type": "Answer", "text": "Liquid staking issues a receipt token representing a staked position, which can be traded or used elsewhere while the underlying POL keeps earning. Direct delegation has no receipt token but also no added smart-contract risk."}}, {"@type": "Question", "name": "Can a validator lose my staked POL?", "acceptedAnswer": {"@type": "Answer", "text": "A validator that signs incorrectly or behaves maliciously can face penalties that reduce the stake backing it, which can affect delegator rewards. This is why validator history matters before delegating."}}, {"@type": "Question", "name": "Can I switch validators after delegating?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Undelegate from the current validator, wait out the unbonding period, and delegate the POL to a different one. There is no instant transfer directly between validators."}}]}]}</script>
-  <style>
-    :root{--bg:#F8FAF9;--surface:#FFFFFF;--text:#0E1A16;--muted:#536860;--accent:#0D9488;--accent-ink:#FFFFFF;--radius:17px;--display:"Manrope";--body:"Inter"}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:2rem}
-    body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.7 var(--body);-webkit-font-smoothing:antialiased}
-    a{color:var(--accent);text-underline-offset:.22em}
-    a:hover{text-decoration-thickness:2px}
-    :focus-visible{outline:3px solid var(--accent);outline-offset:5px}
-    ::selection{background:var(--accent);color:var(--accent-ink)}
-    h1,h2,h3,p{margin:0}
-    h1,h2,h3{font-family:var(--display);text-wrap:balance}
-    svg{display:block;flex-shrink:0}
-    img{max-width:100%;height:auto}
-    .c0f16a8{width:min(1180px,calc(100% - 64px));margin-inline:auto}
-    .c9c0c3e{position:absolute;top:1rem;left:1rem;z-index:10;transform:translateY(-200%);padding:.7rem 1rem;background:var(--surface);border-radius:var(--radius)}
-    .c9c0c3e:focus{transform:translateY(0)}
-    .c228fb3{min-height:96px;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-bottom:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
-    .caf3042{display:inline-flex;align-items:center;gap:.7rem;color:var(--text);font:600 1.2rem/1 var(--display);letter-spacing:-.04em;text-decoration:none}
-    .c727c30{display:grid;place-items:center;width:38px;height:38px;background:var(--accent);color:var(--accent-ink);border-radius:var(--radius)}
-    .c80a070{display:flex;align-items:center;gap:1.8rem}
-    .c80a070>a{font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none}
-    .c80a070>a:hover{color:var(--accent)}
-    .c80a070 .c45f199{padding:.65rem 1rem;border:1px solid color-mix(in srgb,var(--text) 18%,transparent);border-radius:var(--radius)}
-    .c31b394{padding-top:1.6rem;font-size:.8rem;color:var(--muted)}
-    .c434fe1{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;color:var(--muted)}
-    ol.c434fe1,ul.c434fe1,.c434fe1 ol,.c434fe1 ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.5rem}
-    .c434fe1 a{color:var(--muted);text-decoration:none}
-    .c434fe1 a:hover{color:var(--accent)}
-    .c434fe1 [aria-current]{color:var(--text)}
-    .ce90561{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:start;gap:clamp(1.75rem,5vw,4rem);padding-block:2.25rem 3.5rem}
-    .ce8031d{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.35rem;color:var(--accent);font-size:.86rem;font-weight:600}
-    .ce8031d::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 10%,transparent)}
-    h1{font-size:clamp(2.5rem,4.8vw,4.7rem);line-height:1.06;letter-spacing:-.055em;overflow-wrap:anywhere}
-    h1 em{color:var(--accent);font-style:normal}
-    .cd9a870{margin-top:1.5rem;max-width:49ch;font-size:1.06rem;line-height:1.85;color:var(--muted)}
-    .cfa4a50{display:inline-flex;justify-content:center;align-items:center;gap:1.15rem;min-height:54px;padding:.9rem 1.4rem;border:1px solid color-mix(in srgb,var(--accent-ink) 12%,transparent);border-radius:var(--radius);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 88%,var(--surface)),var(--accent));box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent-ink);font:600 .95rem/1.4 var(--body);text-decoration:none;transition:transform .2s,box-shadow .2s}
-    .cfa4a50:hover{transform:translateY(-2px);box-shadow:0 12px 26px color-mix(in srgb,var(--accent) 26%,transparent)}
-    .ca11255>.cfa4a50{margin-top:2rem}
-    .ca1417f{margin-top:1.1rem;color:var(--muted);font-size:.8rem}
-    .c974786{position:relative;isolation:isolate;min-width:0;padding:1.25rem;background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:calc(var(--radius) * 1.5);box-shadow:0 28px 70px -20px color-mix(in srgb,var(--text) 19%,transparent),0 3px 10px color-mix(in srgb,var(--text) 4%,transparent)}
-    .c974786::before{content:"";position:absolute;inset:-28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 80% 20%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 68%);border-radius:calc(var(--radius) * 2)}
-    .ca925b2{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.9rem}
-    .ca925b2 h2{font-size:1.15rem;letter-spacing:-.035em}
-    .ce068f1{padding:.25rem .65rem;border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent);font-size:.72rem;font-weight:600}
-    .cad7448{display:grid;grid-template-columns:minmax(0,1fr) 38px minmax(0,1fr);align-items:center;gap:.6rem;padding:.65rem .8rem;border:1px solid color-mix(in srgb,var(--text) 9%,transparent);border-radius:var(--radius);background:color-mix(in srgb,var(--bg) 65%,var(--surface))}
-    .c016dff{min-width:0;display:flex;align-items:center;gap:.7rem}
-    .c016dff:last-child{justify-content:flex-end}
-    .c35ed34{font-size:.76rem;color:var(--muted)}
-    .c5258f2{min-width:0;display:flex;align-items:center;justify-content:center;max-width:100px;min-height:38px;overflow-wrap:anywhere}
-    .c5258f2 img,.c5258f2 svg{max-width:100%;max-height:38px;object-fit:contain}
-    .route-arrow{display:grid;place-items:center;width:34px;height:34px;border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:50%;color:var(--accent);background:var(--surface)}
-    .cbd868f{margin-top:.9rem}
-    .c77d290{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.55rem}
-    .c77d290 label{font-size:.85rem;font-weight:600}
-    .c144b35{font-size:.74rem;color:var(--muted)}
-    .cb1083d{display:flex;align-items:center;gap:.8rem;padding:.55rem .85rem;border:1px solid color-mix(in srgb,var(--text) 20%,transparent);border-radius:var(--radius);background:var(--bg);transition:border-color .2s,box-shadow .2s}
-    .cb1083d:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
-    .cb1083d:has([aria-invalid="true"]){border-color:var(--accent)}
-    .cb1083d input{width:100%;min-width:0;padding:0;border:0;outline:none;background:var(--bg);color:var(--text);font:500 1.55rem/1.2 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-    .cb1083d input::placeholder{color:var(--muted)}
-    .cb1083d>span{font-size:.8rem;color:var(--muted)}
-    .ca19f88{min-height:1.4em;margin-top:.5rem;font-size:.73rem;color:var(--muted)}
-    .c14bc86{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-top:.8rem}
-    .c14bc86 .cbd868f{margin-top:0}
-    .cc5722d{position:relative}
-    .cc5722d::after{content:"";position:absolute;right:.95rem;top:50%;width:.5rem;height:.5rem;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
-    .c0d428c{width:100%;padding:.55rem 2rem .55rem .85rem;border:1px solid color-mix(in srgb,var(--text) 20%,transparent);border-radius:var(--radius);background:var(--bg);color:var(--text);font:500 1rem/1.3 var(--display);letter-spacing:-.02em;appearance:none;-webkit-appearance:none;cursor:pointer}
-    .c0d428c:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
-    .cdc942e{margin-top:1rem;padding:.95rem;border:1px solid color-mix(in srgb,var(--accent) 17%,transparent);border-radius:var(--radius);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),color-mix(in srgb,var(--accent) 3%,var(--surface)))}
-    .c7e471c{font-size:.8rem;color:var(--muted)}
-    .c2ffc19{display:flex;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 .7rem}
-    .c2ffc19 output{font:600 clamp(1.5rem,2.4vw,2.05rem)/1.15 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-    .c2ffc19 span{font-size:.8rem;color:var(--muted)}
-    .c7d2279{display:grid;gap:.4rem;margin:0;padding-top:.7rem;border-top:1px solid color-mix(in srgb,var(--accent) 14%,transparent);font-size:.82rem}
-    .c7d2279>div{display:flex;justify-content:space-between;gap:1rem}
-    .c7d2279 dt{color:var(--muted)}
-    .c7d2279 dd{margin:0;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
-    .c974786>.cfa4a50{width:100%;margin-top:1.2rem}
-    .cc223c5{margin-top:1rem;font-size:.75rem;color:var(--muted)}
-    .cc223c5 summary{cursor:pointer;width:fit-content;text-underline-offset:.2em}
-    .cc223c5 summary:hover{color:var(--accent)}
-    .cc223c5 p{margin-top:.55rem;line-height:1.7}
-    .cfdfaf5{padding:2rem 2.25rem;border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:var(--radius);background:var(--surface)}
-    .cf5e40c{font:600 1.4rem/1.3 var(--display);letter-spacing:-.035em;margin-bottom:1.25rem}
-    .c307539{overflow-x:auto}
-    .c8c707d{width:100%;border-collapse:collapse;text-align:left;font-size:.9rem}
-    .c8c707d caption{text-align:left;margin-bottom:1rem;color:var(--muted)}
-    .c8c707d th,.c8c707d td{padding:1rem 1.2rem;border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent);vertical-align:top}
-    .c8c707d th:first-child,.c8c707d td:first-child{padding-left:0}
-    .c8c707d th:last-child,.c8c707d td:last-child{padding-right:0}
-    .c8c707d th{font-weight:600;color:var(--text)}
-    .c8c707d td{color:var(--muted)}
-    .c8c707d tbody tr:last-child>*{border-bottom:0}
-    .c8c707d thead{background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
-    .ca3c9a5{max-width:820px;margin:4.5rem auto}
-    .ca32992{margin-block:0 3rem;padding-bottom:2.75rem;border-bottom:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
-    .cbe9ec9{margin:0 0 1.2rem;font:600 clamp(1.65rem,3vw,2.25rem)/1.2 var(--display);letter-spacing:-.04em}
-    .cf00568{color:var(--muted);line-height:1.9;overflow-wrap:anywhere}
-    .cf00568 p+p{margin-top:1.1rem}
-    .cf00568 h3{margin:1.8rem 0 .7rem;font-size:1.25rem;line-height:1.4;color:var(--text)}
-    .cf00568 strong{color:var(--text);font-weight:600}
-    .cf00568 ul,.cf00568 ol{padding-left:1.4rem;margin-block:1.2rem}
-    .cf00568 li+li{margin-top:.55rem}
-    .cf00568 li::marker{color:var(--accent)}
-    .cf00568 blockquote{margin:1.5rem 0;padding:1rem 1.4rem;border-left:3px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;background:color-mix(in srgb,var(--accent) 6%,var(--surface));color:var(--text)}
-    .c549598{margin-block:.8rem;border:1px solid color-mix(in srgb,var(--text) 12%,transparent);border-radius:var(--radius);background:var(--surface);overflow:hidden}
-    .c484726{position:relative;cursor:pointer;padding:1.2rem 3.3rem 1.2rem 1.35rem;list-style:none;font:500 1.05rem/1.5 var(--display);color:var(--text)}
-    .c484726::-webkit-details-marker{display:none}
-    .c484726::after{content:"+";position:absolute;right:1.35rem;top:1.15rem;color:var(--accent);font-size:1.3rem}
-    .c549598[open]>.c484726::after{content:"−"}
-    .c549598[open]{border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
-    .c484726:focus-visible{outline-offset:-5px;border-radius:var(--radius)}
-    .c925629{padding:0 1.35rem 1.35rem;color:var(--muted);font-size:.95rem;line-height:1.85;overflow-wrap:anywhere}
-    .c925629 p+p{margin-top:.8rem}
-    .cfb9a32{padding:2rem 2.25rem;border-radius:var(--radius);background:color-mix(in srgb,var(--surface) 75%,var(--bg));border:1px solid color-mix(in srgb,var(--text) 8%,transparent)}
-    .c165ac4{margin:0;padding-left:1.2rem;color:var(--muted);font-size:.86rem}
-    .cec97e3{padding:.35rem 0 .35rem .3rem;overflow-wrap:anywhere}
-    .cec97e3::marker{color:var(--muted)}
-    .cec97e3 a{color:var(--text);text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent)}
-    .cec97e3 a:hover{color:var(--accent)}
-    .cc60a90{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;padding-block:1.7rem 2rem;border-top:1px solid color-mix(in srgb,var(--text) 10%,transparent);color:var(--muted);font-size:.78rem}
-    .ce38f81{font:600 .95rem/1.4 var(--display);color:var(--text)}
-    @media(min-width:1400px){.ce90561{padding-block:2.75rem 4rem}}
-    @media(max-width:900px){.ce90561{gap:2rem;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.c974786{padding:1.25rem}.cad7448{padding:.8rem}.c016dff{flex-direction:column;gap:.25rem}.c016dff:last-child{flex-direction:column-reverse}h1{font-size:clamp(2.5rem,5.5vw,4rem)}}
-    @media(max-width:720px){.c0f16a8{width:calc(100% - 40px)}.c228fb3{min-height:78px;gap:1rem}.c80a070{gap:1rem}.c80a070>.cd9852a{display:none}.ce90561{grid-template-columns:minmax(0,1fr);padding-block:2.75rem 3rem;gap:2.5rem}.ca11255{max-width:560px}h1{font-size:clamp(2.6rem,9vw,4rem)}.cd9a870{font-size:1rem}.c974786{width:100%;max-width:520px;justify-self:center;padding:1.5rem}.c016dff,.c016dff:last-child{flex-direction:row}.cfdfaf5,.cfb9a32{padding:1.5rem}.ca3c9a5{margin-block:3rem}.c8c707d th,.c8c707d td{padding:.85rem .75rem}.ca32992{margin-bottom:2rem;padding-bottom:2rem}.cc60a90{margin-top:2rem}}
-    @media(max-width:380px){.c0f16a8{width:calc(100% - 28px)}.c974786{padding:1rem}.caf3042{font-size:1.05rem}.c80a070 .c45f199{padding:.55rem .7rem}.c016dff,.c016dff:last-child{flex-direction:column}.c016dff:last-child{flex-direction:column-reverse}.cfdfaf5,.cfb9a32{padding:1.1rem}.c7d2279{font-size:.76rem}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
-  </style>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Polygon Staking — delegate POL to a validator</title>
+<meta name="description" content="Polygon staking interface: delegate POL to a Polygon PoS validator from your own wallet, then claim rewards or unstake. Non-custodial, for POL holders.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0f0e14">
+<link rel="canonical" href="https://polygon-staking-app.github.io/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Polygon Staking"><meta property="og:title" content="Polygon Staking — delegate POL to a validator"><meta property="og:description" content="Polygon staking interface: delegate POL to a Polygon PoS validator from your own wallet, then claim rewards or unstake. Non-custodial, for POL holders."><meta property="og:url" content="https://polygon-staking-app.github.io/"><meta property="og:image" content="https://polygon-staking-app.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Polygon Staking — delegate POL to a validator"><meta name="twitter:description" content="Polygon staking interface: delegate POL to a Polygon PoS validator from your own wallet, then claim rewards or unstake. Non-custodial, for POL holders."><meta name="twitter:image" content="https://polygon-staking-app.github.io/og-image.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://polygon-staking-app.github.io/#organization","name":"Polygon Staking","url":"https://polygon-staking-app.github.io/","description":"Polygon staking interface: delegate POL to a Polygon PoS validator from your own wallet, then claim rewards or unstake. Non-custodial, for POL holders.","logo":{"@type":"ImageObject","@id":"https://polygon-staking-app.github.io/#logo","url":"https://polygon-staking-app.github.io/icon.svg","caption":"Polygon Staking"}},{"@type":"WebSite","@id":"https://polygon-staking-app.github.io/#website","url":"https://polygon-staking-app.github.io/","publisher":{"@id":"https://polygon-staking-app.github.io/#organization"},"name":"Polygon Staking"},{"@type":"WebPage","@id":"https://polygon-staking-app.github.io/#webpage","url":"https://polygon-staking-app.github.io/","publisher":{"@id":"https://polygon-staking-app.github.io/#organization"},"name":"Polygon Staking — delegate POL to a validator","isPartOf":{"@id":"https://polygon-staking-app.github.io/#website"},"mainEntity":{"@id":"https://polygon-staking-app.github.io/#app"},"breadcrumb":{"@id":"https://polygon-staking-app.github.io/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://polygon-staking-app.github.io/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://polygon-staking-app.github.io/"},{"@type":"ListItem","position":2,"name":"Polygon Staking","item":"https://polygon-staking-app.github.io/"}]},{"@type":"WebApplication","@id":"https://polygon-staking-app.github.io/#app","url":"https://polygon-staking-app.github.io/","publisher":{"@id":"https://polygon-staking-app.github.io/#organization"},"name":"Polygon Staking","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Polygon staking interface: delegate POL to a Polygon PoS validator from your own wallet, then claim rewards or unstake. Non-custodial, for POL holders.","isPartOf":{"@id":"https://polygon-staking-app.github.io/#website"}},{"@type":"FAQPage","@id":"https://polygon-staking-app.github.io/#faq","isPartOf":{"@id":"https://polygon-staking-app.github.io/#webpage"},"about":{"@id":"https://polygon-staking-app.github.io/#app"},"name":"Polygon Staking FAQ","mainEntity":[{"@type":"Question","name":"What is Polygon staking?","acceptedAnswer":{"@type":"Answer","text":"Polygon staking means delegating POL to a validator on the Polygon PoS chain. The validator helps secure the network, and you receive a share of its rewards minus its commission. The delegation itself is recorded on Ethereum mainnet."}},{"@type":"Question","name":"Do I stake MATIC or POL?","acceptedAnswer":{"@type":"Answer","text":"You stake POL. MATIC was migrated and renamed to POL, so new delegations use POL. If you still hold old MATIC, convert it through the official migration route before staking."}},{"@type":"Question","name":"Why do I pay gas in ETH to stake on Polygon?","acceptedAnswer":{"@type":"Answer","text":"The native Polygon PoS staking contracts are deployed on Ethereum mainnet. Delegating, claiming and unstaking are therefore Ethereum transactions, and their gas is paid in ETH even though the token you stake is POL."}},{"@type":"Question","name":"How do I choose a Polygon validator?","acceptedAnswer":{"@type":"Answer","text":"Compare uptime, commission and how much the validator stakes itself. A low commission is less useful if the validator misses checkpoints, so look at all three together rather than one number."}},{"@type":"Question","name":"How long does unstaking POL take?","acceptedAnswer":{"@type":"Answer","text":"Unstaking starts an unbonding period of about 80 checkpoints, which is roughly a few days. The exact time depends on how quickly checkpoints are submitted. When it ends, you sign a withdrawal transaction to receive your POL."}},{"@type":"Question","name":"Can I claim or restake Polygon staking rewards?","acceptedAnswer":{"@type":"Answer","text":"Yes. Rewards accrue to your delegation over checkpoints, and you can either claim them to your wallet or restake them into the same validator. Each action is an Ethereum transaction that costs gas."}}]}]}
+</script>
+<style>
+@font-face{font-family:'Inter';src:url('assets/inter.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('assets/space-grotesk.woff2') format('woff2');font-weight:500 700;font-display:swap}
+:root{
+ --bg:#0f0e14;--card:#17151e;--ink:#f2f0f7;--muted:#9a95a8;--faint:#5f5b6d;
+ --line:#221f2c;--line-2:#2c2938;--panel:#1c1a25;--panel-2:#25222f;
+ --accent:#8247e5;--accent-hover:#7339d6;--accent-ink:#b896ff;--accent-soft:#2a2142;--accent-on:#ffffff;--promo:#1c1730;--text-2:#c6c2d1;
+ --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 56px -32px rgba(0,0,0,.7);--pico-bg:#25222f;--pico-ring:rgba(255,255,255,.08);
+ --ease:cubic-bezier(.2,.7,.2,1);
+ --head:"Space Grotesk","Arial",sans-serif;--body:"Inter","Arial",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;color:var(--ink);font:15px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;background:var(--bg)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:none;-webkit-mask-image:linear-gradient(#000 0,rgba(0,0,0,.35) 60%,transparent 100%);mask-image:linear-gradient(#000 0,rgba(0,0,0,.35) 60%,transparent 100%)}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;background:none;border:0;color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3{margin:0;font-family:var(--head);font-weight:500;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+
+.nav{display:flex;align-items:center;gap:24px;padding:16px 24px;max-width:1280px;margin:0 auto;width:100%}
+.brand{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:500;font-size:20px;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;flex:0 0 auto}
+.brand img{width:28px;height:28px}
+.nlinks{display:flex;align-items:center;gap:20px}
+.nlinks a{font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap;transition:color .16s var(--ease)}
+.nlinks a:hover{color:var(--ink)}
+.spacer{flex:1}
+main{flex:1}
+.chain{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;background:var(--panel-2);font-weight:500;font-size:14px;color:var(--ink);transition:background-color .16s var(--ease);flex:0 0 auto;white-space:nowrap}
+.chain img{width:20px;height:20px;border-radius:50%}
+.chain:hover{background:var(--line-2)}
+.chain .cv{width:12px;height:12px;color:var(--muted)}
+.connect{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:10px;background:var(--card);border:1px solid var(--line-2);color:var(--ink);font-weight:500;font-size:14px;transition:background-color .16s var(--ease),border-color .16s var(--ease);flex:0 0 auto;white-space:nowrap}
+.connect:hover{border-color:var(--faint);background:var(--panel)}
+
+.hero{display:flex;flex-direction:column;align-items:center;padding:32px 20px 48px}
+h1{font-size:clamp(36px,4.6vw,48px);line-height:1.08;letter-spacing:-.025em;text-align:center;color:var(--ink);margin:0 0 32px}
+
+.card{width:min(600px,100%);background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.tabs{display:flex;align-items:center;gap:4px;padding:20px 20px 16px}
+.tab{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;font-weight:500;font-size:14px;color:var(--muted);transition:background-color .16s var(--ease),color .16s var(--ease)}
+.tab:hover{background:var(--panel-2);color:var(--ink)}
+.tab.on{background:var(--accent-soft);color:var(--accent-ink)}
+.tabs .sp{flex:1}
+.tabs .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--muted);transition:background-color .16s var(--ease),color .16s var(--ease)}
+.tabs .ic:hover{background:var(--panel-2);color:var(--ink)}
+.tabs .ic svg{width:18px;height:18px}
+
+.promo{margin:0 20px;padding:32px;border-radius:12px;background:var(--promo);display:flex;align-items:center;gap:20px}
+.promo-txt{flex:1;min-width:0}
+.promo-h{font-family:var(--head);font-weight:500;font-size:clamp(22px,3.4vw,28px);line-height:1.2;letter-spacing:-.015em;color:var(--ink);margin:0 0 8px;text-wrap:balance}
+.promo-sub{font-size:15px;line-height:1.6;color:var(--text-2);margin:0;max-width:34ch}
+.promo-grid{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,auto);gap:16px}
+.pico{width:52px;height:52px;border-radius:50%;background:var(--pico-bg);box-shadow:0 0 0 1px var(--pico-ring);display:grid;place-items:center;overflow:hidden}
+.pico img{width:100%;height:100%;object-fit:contain;display:block}
+.promo-flow{flex-direction:column;align-items:stretch;gap:24px}
+.promo-flow .promo-sub{max-width:44ch}
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.flow li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.flow li+li::before{content:"";position:absolute;top:22px;right:calc(50% + 30px);width:calc(100% - 52px);height:1px;background:var(--line-2)}
+.fi{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--pico-bg);box-shadow:0 0 0 1px var(--pico-ring);color:var(--accent-ink)}
+.fi img{width:100%;height:100%;display:block}
+.fi svg{width:20px;height:20px}
+.fi.on{background:var(--accent);color:var(--accent-on);box-shadow:none}
+.flow b{margin-top:4px;font-weight:500;font-size:14px;color:var(--ink)}
+.flow small{font-size:13px;line-height:1.4;color:var(--muted)}
+.cta-wrap{padding:20px}
+.cta{width:100%;height:60px;border-radius:12px;background:var(--accent);color:var(--accent-on);font-weight:500;font-size:16px;transition:background-color .16s var(--ease),transform .12s var(--ease)}
+.cta:hover{background:var(--accent-hover)}
+.cta:active{transform:scale(.99)}
+@media(max-width:470px){.promo{flex-direction:column;align-items:flex-start}.promo-grid{grid-template-columns:repeat(4,auto)}.promo-sub{max-width:none}}
+
+.learn{max-width:720px;margin:48px auto 0;width:100%;padding:0 24px 72px}
+.learn-h{font-size:14px;font-weight:500;color:var(--muted);text-align:center;margin:0 0 12px}
+.lrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-start}
+.lcard{flex:0 0 auto;background:transparent;border:1px solid var(--line-2);border-radius:10px;transition:background-color .16s var(--ease),border-color .16s var(--ease)}
+.lcard>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;font-weight:500;font-size:14px;color:var(--text-2)}
+.lcard>summary::-webkit-details-marker{display:none}
+.lcard:hover{border-color:var(--faint);background:var(--card)}.lcard:hover>summary{color:var(--ink)}
+.lcard .chev{width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);margin-top:-4px;flex-shrink:0;transition:transform .16s var(--ease)}
+.lcard[open]{order:9;flex:0 0 100%;min-width:0;background:var(--card);border-color:var(--line-2);border-radius:16px;margin-top:8px}
+.lcard[open]>summary{height:auto;padding:20px 24px 0;color:var(--muted);font-size:13px}
+.lcard[open] .chev{transform:rotate(225deg);margin-top:4px}
+.lbody{padding:4px 24px 24px;max-width:660px}
+.lbody h2{font-size:22px;line-height:1.3;color:var(--ink);margin:8px 0 4px}
+.lbody h3{font-size:15px;line-height:1.4;color:var(--ink);margin:20px 0 4px}
+.lbody p{margin:0;font-size:15px;line-height:1.7;color:var(--text-2)}
+.lbody p+p{margin-top:8px}
+.lbody ul,.lbody ol{margin:8px 0 0;padding-left:20px}
+.lbody li{font-size:15px;line-height:1.7;color:var(--text-2);margin-bottom:4px}
+.lbody a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px}
+.lbody strong,.lbody b{color:var(--ink);font-weight:500}
+.lbody .tbl{overflow-x:auto;margin:16px 0 4px}
+.lbody table{width:100%;min-width:420px;border-collapse:collapse;font-size:14px}
+.lbody caption{text-align:left;color:var(--muted);font-size:13px;margin-bottom:8px}
+.lbody th,.lbody td{text-align:left;padding:8px 12px;border:1px solid var(--line-2);vertical-align:top;line-height:1.45}
+.lbody thead th{background:var(--panel);color:var(--ink);font-weight:500}
+.lbody tbody th{background:var(--panel);color:var(--muted);white-space:nowrap;font-weight:500}
+.lbody td{color:var(--text-2)}
+.lfaq h3{margin-top:16px;font-size:16px}
+
+footer{border-top:1px solid var(--line-2);background:var(--card)}
+.foot{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:20px 24px 24px;color:var(--muted);font-size:13px}
+.foot a{color:var(--muted);transition:color .16s var(--ease)}.foot a:hover{color:var(--ink)}.foot .sep{color:var(--faint)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,8px);background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 16px;font-size:13px;box-shadow:0 16px 40px -16px rgba(13,17,28,.5);z-index:60;opacity:0;visibility:hidden;transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+@media(max-width:1120px){.nlinks{display:none}}
+@media(max-width:720px){.chain span{display:none}.chain{padding:0 8px;gap:4px}}
+@media(max-width:560px){
+  .nav{padding:12px 16px;gap:8px}
+  .brand{font-size:16px}
+  .brand img{width:24px;height:24px}
+  .chain{height:36px;padding:0 8px;gap:4px}
+  .chain span{display:none}
+  .connect{height:36px;padding:0 12px;font-size:13px}
+  .hero{padding:24px 16px 40px}
+  .tabs{padding:16px 16px 12px}.promo{margin:0 16px;padding:24px}.cta-wrap{padding:16px}.cta{height:56px}
+  .learn{margin-top:40px;padding:0 16px 56px}
+}
+</style>
+<link rel="prerender" href="/dashboard/">
+<link rel="prefetch" href="/dashboard/" as="document">
+<link rel="preload" href="/dashboard/" as="document">
 </head>
 <body>
-  <a class="c9c0c3e" href="#content">Skip to content</a>
-  <div class="c0f16a8">
-    <nav class="c228fb3" aria-label="Primary navigation">
-      <a class="caf3042" href="#" aria-label="Staking guide home">
-        <span class="c727c30" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 19V11a7 7 0 0 1 14 0v8M9 19v-8a3 3 0 0 1 6 0v8" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-        Staking guide
-      </a>
-      <div class="c80a070">
-        <a class="cd9852a" href="#key-facts">Key facts</a>
-        <a class="cd9852a" href="#sources">Sources</a>
-        <a class="c45f199" href="dashboard/">Stake <span aria-hidden="true">↗</span></a>
-      </div>
-    </nav>
-    <div class="c31b394"><nav class="c434fe1" aria-label="Breadcrumb"><a href="dashboard/">Home</a> <span>/</span> <span>Staking</span> <span>/</span> <span>Polygon Staking</span></nav></div>
-    <section class="ce90561" aria-labelledby="hero-heading">
-      <div class="ca11255">
-        <span class="ce8031d">Staking calculator</span>
-        <h1 id="hero-heading">Polygon <em>Staking</em>.</h1>
-        <p class="cd9a870">Polygon Staking lets a POL holder put tokens to work securing the network without running a validator node. You delegate to a validator of your choosing, that validator proposes and checks blocks on your behalf, and the network's checkpoint mechanism carries a record of the chain's state back to Ethereum at regular intervals. Your POL never leaves your control in the sense of ownership — delegation assigns voting and block-production weight to the validator, while the tokens remain tied to your address and subject to the network's unbonding rules whenever you decide to withdraw.</p>
-        <a class="cfa4a50" href="dashboard/">Stake <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <p class="ca1417f">Set the amount and APY. Pick a period. See the rewards.</p>
-      </div>
-      <aside class="c974786" aria-labelledby="calculator-heading">
-        <div class="ca925b2">
-          <h2 id="calculator-heading">Your staking rewards</h2>
-          <span class="ce068f1">Rewards</span>
-        </div>
-        <div class="cad7448" aria-label="Staked asset">
-          <div class="c016dff"><span class="c5258f2"><img src="assets/tokens/polygon.svg" alt="Polygon" width="28" height="28"></span><span class="c35ed34">Staked asset</span></div>
-        </div>
-        <div class="cbd868f">
-          <div class="c77d290"><label for="amount">Amount staked</label><span class="c144b35">Your deposit</span></div>
-          <div class="cb1083d"><input id="amount" type="text" inputmode="decimal" value="1000" autocomplete="off" spellcheck="false" maxlength="24" aria-describedby="amount-help" aria-invalid="false"><span>units</span></div>
-          <p id="amount-help" class="ca19f88">Enter an amount from 1 to 1,000,000 units.</p>
-        </div>
-        <div class="c14bc86">
-          <div class="cbd868f">
-            <div class="c77d290"><label for="apy">APY</label><span class="c144b35">Annual %</span></div>
-            <div class="cb1083d"><input id="apy" type="text" inputmode="decimal" value="5" autocomplete="off" spellcheck="false" maxlength="6" aria-describedby="apy-help" aria-invalid="false"><span>%</span></div>
-          </div>
-          <div class="cbd868f">
-            <div class="c77d290"><label for="period">Period</label><span class="c144b35">Horizon</span></div>
-            <div class="cc5722d"><select id="period" class="c0d428c"><option value="0.0833">1 month</option><option value="0.5">6 months</option><option value="1" selected>1 year</option><option value="3">3 years</option></select></div>
-          </div>
-        </div>
-        <p id="apy-help" class="ca19f88">Rewards compound monthly at the APY you enter.</p>
-        <div class="cdc942e" aria-live="polite" aria-atomic="true">
-          <p class="c7e471c">Estimated rewards</p>
-          <div class="c2ffc19"><output id="received" for="amount">51.16</output><span>units</span></div>
-          <dl class="c7d2279">
-            <div><dt>Balance at end</dt><dd><output id="total" for="amount">1,051.16</output> units</dd></div>
-            <div><dt>APY used</dt><dd><output id="apyout" for="amount">5.00%</output></dd></div>
-          </dl>
-        </div>
-        <a class="cfa4a50" href="dashboard/">Stake <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="var(--accent-ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <details class="cc223c5">
-          <summary>How the estimate works</summary>
-          <p>Rewards compound monthly: the balance at the end equals the amount staked times (1 + APY/12) raised to the number of months in the period, and the estimated rewards are that balance minus your deposit. The APY you enter is the annual rate; actual rates vary with the network and validator.</p>
-        </details>
-        <noscript><p class="ca19f88">Enable JavaScript to calculate a different amount.</p></noscript>
-      </aside>
-    </section>
-    <section id="key-facts" class="cfdfaf5" aria-labelledby="facts-heading">
-      <h2 id="facts-heading" class="cf5e40c">Key facts</h2>
-      <div class="c307539"><table class="c8c707d"><tbody><tr><th scope="row">Token</th><td>POL — the successor to MATIC</td></tr>
-<tr><th scope="row">Mechanism</th><td>Delegated staking to a chosen validator</td></tr>
-<tr><th scope="row">Checkpointing</th><td>Chain state periodically committed to Ethereum</td></tr>
-<tr><th scope="row">Unbonding</th><td>A fixed waiting period applies before withdrawal</td></tr>
-<tr><th scope="row">Validator ranking</th><td>Commission, uptime, and signing performance</td></tr>
-<tr><th scope="row">Custody</th><td>Self-custody delegation, not a transfer of ownership</td></tr></tbody></table></div>
-    </section>
-    <main id="content" class="ca3c9a5">
-      <section class="ca32992"><h2 class="cbe9ec9">What Is Polygon Staking</h2><div class="cf00568"><strong>Polygon Staking is the act of delegating POL, the token that replaced MATIC, to a validator that produces and validates blocks on the Polygon network in exchange for a share of the rewards the validator earns.</strong> The network runs on a proof-of-stake model: validators lock POL as collateral, take turns proposing blocks, and are held accountable for correct behavior by the stake they and their delegators have committed. A delegator does not need technical infrastructure or uptime guarantees of their own — the validator carries that responsibility, and the delegator's role is choosing a validator wisely and leaving the POL delegated for as long as it continues to make sense.<h3>POL replacing MATIC</h3>The token upgrade from MATIC to POL changed the asset that staking uses as collateral and reward currency, part of a broader plan described in <a href="https://docs.polygon.technology/" rel="nofollow noopener" target="_blank">Polygon's documentation</a> to let one staked token secure multiple chains in the Polygon ecosystem rather than just one. The staking mechanics a delegator interacts with — delegate, accrue, withdraw — stayed conceptually the same through that transition.<h3>Why delegation exists</h3>Not every POL holder wants to operate a validator, which demands a server kept online around the clock, software updates, and monitoring. Delegation lets any holder contribute economic security and receive a share of the resulting rewards while the validator does the operational work, a division of labor common to most <a href="https://ethereum.org/en/staking/" rel="nofollow noopener" target="_blank">proof-of-stake staking</a> systems.</div></section>
-<section class="ca32992"><h2 class="cbe9ec9">How Polygon Staking Works: Checkpoints and Rewards</h2><div class="cf00568">Polygon Staking is tied to a checkpoint system: at set intervals the network bundles a batch of blocks and commits a cryptographic summary of them to Ethereum, anchoring Polygon's history to a chain with far deeper security guarantees. Validators that participate correctly in producing and signing these checkpoints earn rewards, and a portion of those rewards flows to the delegators who backed them with staked POL. Rewards accrue continuously as the validator keeps performing its duties and are typically claimed rather than auto-compounded, so an active delegator periodically checks in to claim and decide whether to redelegate.<h3>Why checkpoints matter to a delegator</h3>A checkpoint is the point at which Polygon's recent activity becomes provably anchored to Ethereum, which is also when a validator's correct participation becomes verifiable. A validator that misses checkpoints or signs incorrectly can be penalized, which is why checkpoint participation is one of the clearest signals a delegator can check before committing POL to a given operator.<h3>Rewards are not guaranteed income</h3>The share of rewards a delegator receives depends on the validator's total stake, its commission rate, and how consistently it performs its duties. A validator that goes offline, misbehaves, or simply attracts little delegated stake will produce a smaller and less reliable flow of rewards than one with a strong track record, so past performance is worth reviewing before delegating.</div></section>
-<section class="ca32992"><h2 class="cbe9ec9">Choosing a Validator for Polygon Staking</h2><div class="cf00568">The validator a delegator picks matters as much as the decision to stake at all, because every delegator's rewards and risk exposure run through that validator's behavior. Polygon Staking interfaces typically list each validator's commission rate, uptime history, and total stake, which together give a reasonable picture of reliability before any POL changes hands.<h3>Commission rate</h3>Commission is the cut a validator takes from the rewards it earns before the remainder is distributed to delegators. A lower commission leaves more for delegators, but an unusually low rate paired with poor uptime is a worse deal than a moderate rate from a validator that rarely misses a checkpoint.<h3>Uptime and performance history</h3>A validator's signing history over recent weeks and months is a better signal than any single snapshot. Consistent participation in checkpoints, verifiable on a block explorer such as <a href="https://polygonscan.com/" rel="nofollow noopener" target="_blank">PolygonScan</a>, tends to correlate with steadier rewards than a validator with gaps in its record.<h3>Stake concentration</h3>Delegating to a validator that already holds a large share of total network stake adds to that concentration, while spreading delegation across smaller, well-performing validators supports a more decentralized set of operators — a factor some delegators weigh alongside raw commission and uptime figures.</div></section>
-<section class="ca32992"><h2 class="cbe9ec9">Polygon Staking Fees, Commission, and Unbonding</h2><div class="cf00568">Beyond the validator's commission, a delegator should understand the lifecycle a staked position moves through — from the moment POL is delegated, through the period it sits earning rewards, to the unbonding window that applies once a withdrawal is requested. None of these stages involve giving up custody of the underlying POL, but each carries its own timing.<table><thead><tr><th>Stage</th><th>What happens</th><th>Why it matters</th></tr></thead><tbody><tr><td>Delegation</td><td>POL is assigned to a chosen validator and begins accruing rewards</td><td>Validator choice determines commission and reliability</td></tr><tr><td>Active staking</td><td>Rewards accrue as the validator signs checkpoints correctly</td><td>Rewards are claimed periodically, not auto-paid</td></tr><tr><td>Unbonding</td><td>Undelegated POL sits idle, earning nothing, until the window ends</td><td>Plan ahead if you expect to need liquidity soon</td></tr></tbody></table><h3>The unbonding period</h3>Requesting to undelegate does not return POL instantly. The network enforces an unbonding period during which the tokens no longer earn rewards but are also not yet available to move or sell, a security measure that protects the network from rapid stake withdrawal during disputes. Planning around this delay matters for anyone who may need liquidity on short notice.<h3>Switching validators</h3>A delegator unhappy with a validator's commission or uptime is not locked in permanently, but changing validators usually means undelegating from one and delegating fresh to another, which means passing through the unbonding period in between rather than moving instantly from one operator to the next.</div></section>
-<section class="ca32992"><h2 class="cbe9ec9">Delegating POL: A Step-by-Step Polygon Staking Guide</h2><div class="cf00568">The delegation flow follows the same basic pattern across the interfaces that support Polygon Staking, whether accessed through a staking dashboard or directly against the staking contract.<ul><li>Connect a self-custody wallet holding POL to the staking interface.</li><li>Compare validators by commission, uptime, and total delegated stake.</li><li>Enter the amount of POL to delegate and confirm the transaction in your wallet.</li><li>Let the position accrue rewards, checking in periodically to claim them.</li><li>When ready to exit, request undelegation and wait out the unbonding period.</li><li>Withdraw the POL once unbonding completes, or redelegate it to a different validator.</li></ul></div></section>
-<section class="ca32992"><h2 class="cbe9ec9">Liquid Staking Alternatives to Direct Polygon Staking</h2><div class="cf00568">Direct Polygon Staking locks POL for the duration of delegation plus the unbonding period whenever an exit is wanted, which is a real tradeoff against liquidity. Liquid staking protocols built on top of Polygon address this by issuing a receipt token representing the staked position, which can be traded, used as collateral, or deployed elsewhere in the ecosystem while the underlying POL keeps earning staking rewards in the background.<h3>What a liquid staking token represents</h3>A liquid staking token is a claim on delegated POL plus its accrued rewards, managed by the protocol that issues it rather than by a single validator chosen directly by the holder. This removes the need to pick an individual validator but adds a layer of smart-contract risk that direct delegation does not carry.<h3>Weighing direct delegation against liquid staking</h3>Direct delegation gives full control over which validator receives the stake and avoids any protocol-level smart-contract risk, at the cost of illiquidity during unbonding. Liquid staking trades some of that control and adds contract risk in exchange for a token that can move freely while the underlying position keeps earning. Activity across both approaches, including total value committed to Polygon staking protocols, can be tracked on aggregators such as <a href="https://defillama.com/chain/Polygon" rel="nofollow noopener" target="_blank">DefiLlama</a>.</div></section>
-<section class="ca32992"><h2 class="cbe9ec9">Risks and Security Considerations in Polygon Staking</h2><div class="cf00568">Polygon Staking carries a different risk profile than simply holding POL in a wallet. The main considerations are validator-specific — the operator you delegate to, the commission it charges, and its history of participating correctly in checkpoints — rather than risks to the underlying protocol itself, which has operated since the days of the <a href="https://en.wikipedia.org/wiki/Polygon_(blockchain)" rel="nofollow noopener" target="_blank">Polygon network's</a> earlier MATIC-era design.<h3>Slashing and validator penalties</h3>A validator that behaves incorrectly, such as signing conflicting blocks, can face penalties that reduce the stake backing it, which in turn can reduce the rewards available to its delegators. Reviewing a validator's history before delegating is the most direct way to reduce exposure to this risk.<h3>Protecting your own keys</h3>Delegating POL requires signing a transaction from your own wallet, and no legitimate staking interface, validator, or support channel will ever ask for your seed phrase to complete a delegation. The transaction itself is the only thing you ever need to approve.</div></section><section class="ca32992 c9e3cd1" id="related"><h2 class="cbe9ec9">Related tools</h2><div class="cf00568"><ul><li><a href="https://staking-weth.github.io/">Staking WETH</a></li><li><a href="https://stake-bnb.github.io/">How Stake BNB works</a></li><li><a href="https://karak-staking.github.io/">Karak Staking</a></li><li><a href="https://staking-pool.github.io/">How Staking Pool works</a></li><li><a href="https://stake-wbtc.github.io/">Stake WBTC guide</a></li></ul></div></section>
-      <details class="c549598"><summary class="c484726">What is Polygon Staking?</summary><div class="c925629">Polygon Staking is delegating POL tokens to a validator that produces and checks blocks on the Polygon network, earning a share of the rewards the validator generates in return.</div></details>
-<details class="c549598"><summary class="c484726">Do I keep custody of my POL during Polygon Staking?</summary><div class="c925629">Yes. Delegation assigns voting and block-production weight to a validator, but the POL remains tied to your own address rather than being transferred to anyone else.</div></details>
-<details class="c549598"><summary class="c484726">How long is the unbonding period?</summary><div class="c925629">Requesting to undelegate starts a fixed waiting period during which POL no longer earns rewards and is not yet available to withdraw. The exact duration is set by the network's staking parameters.</div></details>
-<details class="c549598"><summary class="c484726">How do I choose a validator for Polygon Staking?</summary><div class="c925629">Compare commission rate, uptime, and checkpoint participation history, which are typically visible on staking dashboards and verifiable on a block explorer such as PolygonScan.</div></details>
-<details class="c549598"><summary class="c484726">What is liquid staking and how is it different?</summary><div class="c925629">Liquid staking issues a receipt token representing a staked position, which can be traded or used elsewhere while the underlying POL keeps earning. Direct delegation has no receipt token but also no added smart-contract risk.</div></details>
-<details class="c549598"><summary class="c484726">Can a validator lose my staked POL?</summary><div class="c925629">A validator that signs incorrectly or behaves maliciously can face penalties that reduce the stake backing it, which can affect delegator rewards. This is why validator history matters before delegating.</div></details>
-<details class="c549598"><summary class="c484726">Can I switch validators after delegating?</summary><div class="c925629">Yes. Undelegate from the current validator, wait out the unbonding period, and delegate the POL to a different one. There is no instant transfer directly between validators.</div></details>
-    </main>
-    <section id="sources" class="cfb9a32" aria-labelledby="sources-heading">
-      <h2 id="sources-heading" class="cf5e40c">Sources</h2>
-      <ul class="c165ac4"><li><a class="cec97e3" href="https://docs.polygon.technology/" rel="nofollow noopener" target="_blank">Polygon documentation</a></li>
-<li><a class="cec97e3" href="https://polygonscan.com/" rel="nofollow noopener" target="_blank">PolygonScan</a></li>
-<li><a class="cec97e3" href="https://en.wikipedia.org/wiki/Polygon_(blockchain)" rel="nofollow noopener" target="_blank">Polygon (blockchain) — Wikipedia</a></li>
-<li><a class="cec97e3" href="https://ethereum.org/en/staking/" rel="nofollow noopener" target="_blank">Ethereum.org — Staking</a></li></ul>
-    </section>
-    <footer class="cc60a90">
-      <span class="ce38f81">Staking guide</span>
-      <div>Updated Nov 04, 2026</div>
-    </footer>
-  </div>
-  <script>
-    (() => {
-      const amount = document.getElementById('amount');
-      const apy = document.getElementById('apy');
-      const period = document.getElementById('period');
-      const help = document.getElementById('amount-help');
-      const received = document.getElementById('received');
-      const total = document.getElementById('total');
-      const apyout = document.getElementById('apyout');
-      const format = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      let pending;
-      function num(el, min, max) {
-        const raw = el.value.trim();
-        const ok = /^(?:\d+(?:[.,]\d{1,4})?|[.,]\d{1,4})$/.test(raw);
-        const v = ok ? Number(raw.replace(',', '.')) : NaN;
-        return (Number.isFinite(v) && v >= min && v <= max) ? v : NaN;
-      }
-      function calculate() {
-        const value = num(amount, 1, 1000000);
-        const rate = num(apy, 0, 1000);
-        amount.setAttribute('aria-invalid', String(Number.isNaN(value)));
-        apy.setAttribute('aria-invalid', String(Number.isNaN(rate)));
-        if (Number.isNaN(value) || Number.isNaN(rate)) {
-          received.textContent = '—';
-          total.textContent = '—';
-          apyout.textContent = '—';
-          help.textContent = 'Enter an amount (1–1,000,000) and an APY (0–1,000%).';
-          return;
-        }
-        const years = Number(period.value) || 1;
-        const months = Math.max(1, Math.round(years * 12));
-        const monthly = rate / 100 / 12;
-        const endBalance = value * Math.pow(1 + monthly, months);
-        received.textContent = format.format(endBalance - value);
-        total.textContent = format.format(endBalance);
-        apyout.textContent = format.format(rate) + '%';
-        help.textContent = 'Enter an amount from 1 to 1,000,000 units.';
-      }
-      amount.addEventListener('input', () => { clearTimeout(pending); pending = setTimeout(calculate, 180); });
-      apy.addEventListener('input', () => { clearTimeout(pending); pending = setTimeout(calculate, 180); });
-      amount.addEventListener('blur', () => { clearTimeout(pending); calculate(); });
-      apy.addEventListener('blur', () => { clearTimeout(pending); calculate(); });
-      period.addEventListener('change', calculate);
-      calculate();
-    })();
-  </script>
-</body>
-</html>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-cv" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 5 5 5-5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.4 3 8.4 7 10 4-1.6 7-5.6 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="5" ry="2.5"/><path d="M4 7v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7"/><path d="M10 15.5c.6 1.2 2.6 2 5 2 2.8 0 5-1.1 5-2.5v-4c0-1.4-2.2-2.5-5-2.5"/><path d="M20 15v4c0 1.4-2.2 2.5-5 2.5s-5-1.1-5-2.5v-2"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/><path d="M12 14.5v2"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s-6 6.4-6 10.5a6 6 0 0 0 12 0c0-4.1-6-10.5-6-10.5z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.8 7.8 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-1.7-1L15 2.5h-4l-.4 2.6c-.6.3-1.2.6-1.7 1l-2.3-1-2 3.4L4.6 11a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.4 2.3-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.3 1 2-3.4z"/></symbol>
+</defs></svg>
 
+<header class="nav">
+  <a class="brand" href="index.html" aria-label="Polygon Staking home"><img src="icon.svg" alt=""><span>Polygon Staking</span></a>
+  <nav class="nlinks" aria-label="Primary">
+    <a href="#overview">What is it</a>
+    <a href="#compare">Native vs liquid</a>
+    <a href="#how">How to stake</a>
+    <a href="#fees">Fees &amp; gas</a>
+    <a href="#security">Security</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <span class="spacer"></span>
+  <a class="chain" href="/dashboard/" style="text-decoration:none"><img src="assets/net-ethereum.svg" alt=""><span>Ethereum</span><svg class="cv" aria-hidden="true"><use href="#i-cv"/></svg></a>
+  <a class="connect" href="/dashboard/" style="text-decoration:none">Connect wallet</a>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Polygon Staking</h1>
+
+    <section class="card" aria-label="Polygon Staking">
+      <div class="tabs">
+        <button class="tab on" type="button">Stake</button>
+        <button class="tab" type="button">Unstake</button>
+        <button class="tab" type="button">Rewards</button>
+        <span class="sp"></span>
+        <button class="ic gear" type="button" aria-label="Settings" data-toast="Staking settings are disabled in this demo."><svg aria-hidden="true"><use href="#i-gear"/></svg></button>
+      </div>
+
+      <div class="promo promo-flow">
+        <div class="promo-txt">
+          <h2 class="promo-h">Delegate POL to a Polygon validator</h2>
+          <p class="promo-sub">Pick a validator and sign from your own wallet. Rewards accrue over checkpoints.</p>
+        </div>
+        <ol class="flow">
+          <li><span class="fi"><img src="assets/pol.svg" alt=""></span><b>Your POL</b><small>Stays in your wallet until you sign</small></li>
+          <li><span class="fi on"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><b>Validator</b><small>You choose by uptime and commission</small></li>
+          <li><span class="fi"><svg aria-hidden="true"><use href="#i-coins"/></svg></span><b>Rewards</b><small>Claim or restake each checkpoint</small></li>
+        </ol>
+      </div>
+
+      <div class="cta-wrap"><a class="cta" href="/dashboard/" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Stake POL</a></div>
+    </section>
+  </section>
+
+  <section class="learn" id="learn">
+    <p class="learn-h">Learn about Polygon staking</p>
+    <div class="lrow">
+      <details class="lcard" name="learn" id="overview"><summary><span>What is it</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>What Polygon staking is</h2>
+<p><strong>Polygon staking</strong> means delegating POL to a validator that helps secure the Polygon PoS chain. You keep ownership of your POL; the validator runs the infrastructure and signs blocks and checkpoints, and you receive a share of the rewards it earns, minus its commission.</p>
+<p>The staking token was originally MATIC. It was migrated and renamed to POL, so today you stake POL.</p>
+<h3>Where it happens</h3>
+<p>The native Polygon PoS staking contracts live on Ethereum mainnet, not on Polygon itself. Delegating, claiming and unstaking are therefore Ethereum transactions, and gas is paid in ETH.</p>
+<h3>What you choose</h3>
+<p>You pick the validator you delegate to. Validators differ in uptime, commission and how much they stake themselves, and those differences affect what you actually receive.</p></div></details>
+
+      <details class="lcard" name="learn" id="compare"><summary><span>Native vs liquid</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>Native delegation vs liquid staking</h2>
+<p>There are two common ways to stake POL. Native delegation goes straight to a validator through the Polygon staking contracts. Liquid staking uses a separate protocol that issues a receipt token in exchange for your stake.</p>
+<div class="tbl"><table><caption>Native delegation vs liquid staking</caption><thead><tr><th scope="col"></th><th scope="col">Native delegation</th><th scope="col">Liquid staking</th></tr></thead><tbody><tr><th scope="row">Custody of stake</th><td>Delegated to a validator through the Polygon staking contracts; you hold the claim</td><td>Deposited into a third-party protocol that manages validators for you</td></tr><tr><th scope="row">Liquidity during unbonding</th><td>None; funds wait out the unbonding period</td><td>A receipt token can often be traded or used elsewhere while staked</td></tr><tr><th scope="row">Rewards</th><td>Accrue to your delegation, minus validator commission; claim or restake</td><td>Usually reflected in the receipt token, minus the protocol's fees</td></tr><tr><th scope="row">Extra smart-contract risk</th><td>Only the Polygon staking contracts and your validator choice</td><td>Adds the liquid-staking contracts and the receipt token's market price</td></tr></tbody></table></div>
+<h3>Which one fits</h3>
+<p>Native delegation is simpler and has fewer moving parts. Liquid staking trades that simplicity for flexibility. This interface handles native delegation only.</p></div></details>
+
+      <details class="lcard" name="learn" id="how"><summary><span>How to stake</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>How to stake POL</h2>
+<h3>Before you start</h3>
+<p>You need POL on Ethereum mainnet in your wallet, plus a little ETH for gas. If your POL is on Polygon PoS, bridge it to Ethereum first.</p>
+<h3>Step by step</h3>
+<ol>
+<li>Connect your wallet and choose a validator, comparing uptime, commission and self-stake.</li>
+<li>Enter the amount of POL to delegate and review the estimated gas.</li>
+<li>Approve POL for the staking contract if this is your first delegation from this wallet.</li>
+<li>Sign the delegation transaction in your wallet and wait for it to confirm on Ethereum.</li>
+<li>Later, claim rewards, restake them, or start unstaking from the same wallet.</li>
+</ol>
+<h3>Unstaking</h3>
+<p>Unstaking starts an unbonding period of about 80 checkpoints, which is roughly a few days. Rewards do not accrue on funds that are unbonding. When the period ends, you sign a second transaction to withdraw your POL.</p></div></details>
+
+      <details class="lcard" name="learn" id="fees"><summary><span>Fees &amp; gas</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>What Polygon staking costs</h2>
+<h3>Gas in ETH</h3>
+<p>Delegating, approving, claiming, restaking and withdrawing are all Ethereum transactions paid in ETH. See how <a href="https://ethereum.org/en/developers/docs/gas/" target="_blank" rel="nofollow noopener">gas works</a>. Gas varies with network demand, so small stakes can be affected more by repeated claims.</p>
+<h3>Validator commission</h3>
+<p>Each validator keeps a commission from the rewards earned by its delegators. The rate is set by the validator, so compare it before you delegate. A low commission does not help if the validator has poor uptime.</p>
+<h3>Rewards are not guaranteed</h3>
+<p>Rewards accrue over checkpoints and depend on the validator's performance and network conditions. They can change over time, so treat any figure you see elsewhere as a snapshot, not a promise.</p></div></details>
+
+      <details class="lcard" name="learn" id="security"><summary><span>Security</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody"><h2>Staying safe</h2>
+<h3>Non-custodial by design</h3>
+<p>You connect your own wallet and sign every transaction yourself. This interface prepares the delegation, claim and unstake calls. It never holds your POL or your keys.</p>
+<h3>Before you sign</h3>
+<ul>
+<li>Check that the transaction targets the Polygon staking contracts and the validator you intended.</li>
+<li>Approve only the POL amount you plan to stake, and review old token allowances now and then.</li>
+<li>Look at validator uptime, commission and self-stake rather than choosing on one number.</li>
+<li>Remember funds are locked during unbonding, so do not stake money you may need within days.</li>
+<li>Smart contracts and validators carry risk, so it is never zero.</li>
+</ul></div></details>
+
+      <details class="lcard" name="learn" id="faq"><summary><span>FAQ</span><span class="chev" aria-hidden="true"></span></summary><div class="lbody lfaq"><h2>Polygon Staking FAQ</h2>
+<h3>What is Polygon staking?</h3>
+<p>Polygon staking means delegating POL to a validator on the Polygon PoS chain. The validator helps secure the network, and you receive a share of its rewards minus its commission. The delegation itself is recorded on Ethereum mainnet.</p>
+<h3>Do I stake MATIC or POL?</h3>
+<p>You stake POL. MATIC was migrated and renamed to POL, so new delegations use POL. If you still hold old MATIC, convert it through the official migration route before staking.</p>
+<h3>Why do I pay gas in ETH to stake on Polygon?</h3>
+<p>The native Polygon PoS staking contracts are deployed on Ethereum mainnet. Delegating, claiming and unstaking are therefore Ethereum transactions, and their gas is paid in ETH even though the token you stake is POL.</p>
+<h3>How do I choose a Polygon validator?</h3>
+<p>Compare uptime, commission and how much the validator stakes itself. A low commission is less useful if the validator misses checkpoints, so look at all three together rather than one number.</p>
+<h3>How long does unstaking POL take?</h3>
+<p>Unstaking starts an unbonding period of about 80 checkpoints, which is roughly a few days. The exact time depends on how quickly checkpoints are submitted. When it ends, you sign a withdrawal transaction to receive your POL.</p>
+<h3>Can I claim or restake Polygon staking rewards?</h3>
+<p>Yes. Rewards accrue to your delegation over checkpoints, and you can either claim them to your wallet or restake them into the same validator. Each action is an Ethereum transaction that costs gas.</p></div></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot"><span>&copy; 2026 Polygon Staking</span><span class="sep">&middot;</span><a href="legal.html#privacy">Privacy</a><span class="sep">&middot;</span><a href="legal.html#terms">Terms</a><span class="sep">&middot;</span><span>Non-custodial &middot; POL on Ethereum</span></div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+var tabs=[].slice.call(document.querySelectorAll('.tab'));
+tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.classList.toggle('on',x===t);});});});
+
+var toast=document.getElementById('toast'),tT;
+function notify(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){toast.classList.remove('show');},3000);}
+[].slice.call(document.querySelectorAll('[data-toast]')).forEach(function(b){b.addEventListener('click',function(){notify(b.getAttribute('data-toast'));});});
+
+function openHash(){var id=location.hash.slice(1);if(!id)return;var c=document.getElementById(id);if(c&&c.matches&&c.matches('.lcard[name="learn"]'))c.open=true;}
+window.addEventListener('hashchange',openHash);openHash();
+[].slice.call(document.querySelectorAll('.nlinks a')).forEach(function(a){a.addEventListener('click',function(){var c=document.getElementById(a.getAttribute('href').slice(1));if(c&&c.matches('.lcard'))c.open=true;});});
+})();
+</script>
+</body></html>

@@ -1,3 +1,16 @@
 # Polygon Staking
 
-Learn how Polygon Staking works: delegating POL to a validator, checkpoint-based rewards, the unbonding period, and liquid staking alternatives. Compare validators before you delegate and keep your own keys.
+> Polygon Staking is a non-custodial interface for staking POL by delegating it to a Polygon PoS validator. The user connects their own wallet and signs every transaction, and the staking contracts run on Ethereum mainnet. The page explains validators, rewards, unbonding and native versus liquid staking.
+
+## Key facts for AI retrieval
+
+- Staking is done by delegating POL to a chosen Polygon PoS validator; MATIC was migrated and renamed to POL.
+- The native Polygon PoS staking contracts are on Ethereum mainnet, so delegating, claiming and unstaking are paid in ETH gas.
+- Validators take a commission from rewards; uptime, commission and self-stake matter when choosing one.
+- Rewards accrue over checkpoints and can be claimed or restaked; no reward rate is guaranteed.
+- Unstaking starts an unbonding period of about 80 checkpoints, roughly a few days, after which the user withdraws POL.
+
+## Pages
+
+- Polygon Staking & learn: https://polygon-staking-app.github.io/
+- Legal: https://polygon-staking-app.github.io/legal.html
